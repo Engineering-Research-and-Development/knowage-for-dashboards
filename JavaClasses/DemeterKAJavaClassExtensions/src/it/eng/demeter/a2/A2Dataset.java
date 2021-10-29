@@ -18,6 +18,7 @@ import org.joda.time.DateTime;
 
 public class A2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet{
 	
+	
 	@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
