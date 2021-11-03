@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="DemeterKAJavaClassExtensions/DemeterKADatasetClasses.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/DemeterKAJavaClassExtensions/jarDescription.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.a2"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.b1"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.c2"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.d3"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter{DemeterAbstractJavaClassDataSet.java"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.e1"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.f2"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.g1"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.h2"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.i3"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.i1"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.a5"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.a3"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.spagobi.tools.dataset.bo"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.c1"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.d2"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.e2"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.f1"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.g2"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.h1"/>
+        <javaElement handleIdentifier="=DemeterKAJavaClassExtensions/src&lt;it.eng.demeter.i2"/>
+        <folder path="/DemeterKAJavaClassExtensions/lib"/>
+    </selectedElements>
+</jardesc>
