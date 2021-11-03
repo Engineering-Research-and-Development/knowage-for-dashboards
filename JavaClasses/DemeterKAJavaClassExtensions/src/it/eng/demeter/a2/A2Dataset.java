@@ -5,20 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import org.joda.time.DateTime;
+import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
-public class A2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet{
+public class A2Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
 	
-	@Override
+	/*@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
 	}
@@ -37,12 +33,13 @@ public class A2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 			e.printStackTrace();
 		}
 		return ds;
-	}
+	}*/
 	
-	public static String aimReaderForA2(String urlToRead) throws Exception, JSONException {
+	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
+		//public static String aimReaderForA2(String urlToRead) throws Exception, JSONException {
 	      
 		  /*Requesting AIM*/
-		  StringBuilder aim = new StringBuilder();
+		  /*StringBuilder aim = new StringBuilder();
 	      URL url = new URL(urlToRead);
 	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	      conn.setRequestMethod("GET");
@@ -51,7 +48,7 @@ public class A2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	      while ((line = rd.readLine()) != null) {
 	         aim.append(line);
 	      }
-	      rd.close();
+	      rd.close();*/
 	      
 	      String rows = "";
 	      rows = "<ROWS>";
@@ -75,28 +72,29 @@ public class A2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		    		  break;
 		    	  case "ObservationCollection":
 		    		  A2ObservationCollection ob = new A2ObservationCollection();
-		    		  ob.id = jsonArray.getJSONObject(l).get("@id").toString();
-		    		  ob.featureId = jsonArray.getJSONObject(l).get("hasFeatureOfInterest").toString();
-		    		  ob.date = jsonArray.getJSONObject(l).get("resultTime").toString().split("T")[0];
+		    		  ob.setId(jsonArray.getJSONObject(l).get("@id").toString());
+		    		  ob.setFeatureId(jsonArray.getJSONObject(l).get("hasFeatureOfInterest").toString());
+		    		  ob.setDate(jsonArray.getJSONObject(l).get("resultTime").toString().split("T")[0]);
 		    		  JSONArray members = new JSONArray(jsonArray.getJSONObject(l).get("hasMember").toString());
 		    		  for (int j=0; j<members.length(); j++) {
-		    			  ob.observationId.add(members.get(j).toString());
+		    			  ob.addObservationId(members.get(j).toString());
 		    		  }
-		    		  observationCollections.put(ob.id, ob);
+		    		  observationCollections.put(ob.getId(), ob);
 		    		  break;
 		    	  case "Observation":
 		    		  A2Observation qv = new A2Observation();
-		    		  qv.id = jsonArray.getJSONObject(l).get("@id").toString();
-		    		  qv.identifier = jsonArray.getJSONObject(l).get("identifier").toString();
-		    		  if(qv.identifier.equals("BBCH")) {
-		    			  qv.description = jsonArray.getJSONObject(l).get("description").toString();
+		    		  qv.setId(jsonArray.getJSONObject(l).get("@id").toString());
+		    		  qv.setIdentifier(jsonArray.getJSONObject(l).get("identifier").toString());
+		    		  if(qv.getIdentifier().equals("BBCH")) {
+		    			  qv.setDescription(jsonArray.getJSONObject(l).get("description").toString());
 		    		  }
-		    		  qv.value = jsonArray.getJSONObject(l).getJSONObject("hasResult").get("numericValue").toString();
-		    		  observations.put(qv.id,qv);
+		    		  qv.setValue(jsonArray.getJSONObject(l).getJSONObject("hasResult").get("numericValue").toString());
+		    		  observations.put(qv.getId(),qv);
 		    		  break;
 		    	  }
 		   	  }
 	      } catch (JSONException e) {
+	    	  logger.error(e.getMessage(), e.getCause());
 	    	  e.printStackTrace();
 	      }
 	      
@@ -105,28 +103,28 @@ public class A2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	      List<A2DatasetRecord> dsRListTemp=new ArrayList<A2DatasetRecord>();
 	      for(String feature:features) {
 	    	  observationCollections.forEach((obcId, obcObj) -> {
-	    		  if(obcObj.featureId.equals(feature)) {
+	    		  if(obcObj.getFeatureId().equals(feature)) {
 	    			  A2DatasetRecord dsR = new A2DatasetRecord();
-		    		  DateTime dt = new DateTime(obcObj.date);
+		    		  DateTime dt = new DateTime(obcObj.getDate());
 		    		  String doy = Integer.toString(dt.getDayOfYear());
-		    		  dsR.parcelId = feature;
-		    		  dsR.doy = doy;
-		    		  dsR.date = obcObj.date;
+		    		  dsR.setParcelId(feature);
+		    		  dsR.setDoy(doy);
+		    		  dsR.setDate(obcObj.getDate());
 	    			  observations.forEach((obId, obObj) -> {
-	    				  for(String observationID:obcObj.observationId) {
-	    					  if(obObj.id.equals(observationID)) {
+	    				  for(String observationID:obcObj.getObservationId()) {
+	    					  if(obObj.getId().equals(observationID)) {
 		    					  boolean doyFound = false;
-		    					  String measureName = obObj.identifier;
+		    					  String measureName = obObj.getIdentifier();
 		    	    			  for(A2DatasetRecord dsRec:dsRListTemp) {
-		    	    				  if(doy.equals(dsRec.doy)) {
+		    	    				  if(doy.equals(dsRec.getDoy())) {
 		    	    					  doyFound = true;
 		    	    					  switch (measureName) {
 		    	    					  case "BBCH":
-		    	    						  dsRec.bbch = obObj.value;
-		    	    						  dsRec.description = obObj.description;
+		    	    						  dsRec.setBbch(obObj.getValue());
+		    	    						  dsRec.setDescription(obObj.getDescription());
 		    	    						  break;
 		    	    					  case "GDD":
-		    	    						  dsRec.gdd = obObj.value;
+		    	    						  dsRec.setGdd(obObj.getValue());
 		    	    						  break;
 		    	    					  }
 		    	    				  }
@@ -134,11 +132,11 @@ public class A2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		    	    			  if (doyFound == false) {
 		    	    				  switch (measureName) {
 			    					  case "BBCH":
-			    						  dsR.bbch = obObj.value;
-			    						  dsR.description = obObj.description;
+			    						  dsR.setBbch(obObj.getValue());
+			    						  dsR.setDescription(obObj.getDescription());
 			    						  break;
 			    					  case "GDD":
-			    						  dsR.gdd = obObj.value;
+			    						  dsR.setGdd(obObj.getValue());
 			    						  break;
 			    					  }
 		    	    				  dsRListTemp.add(dsR);
@@ -154,15 +152,16 @@ public class A2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	      
 	      /*Exporting Records to XML KA format*/
 	      for(A2DatasetRecord dsR:dsRList) {
-	    	  rows += "<ROW DOY=\"" + dsR.doy
-	    			  + "\" Parcel=\"" + dsR.parcelId
-	    			  + "\" BBCH=\"" + dsR.bbch
-	    			  + "\" GDD=\"" + dsR.gdd
-	    			  + "\" Description=\"" + dsR.description
-	    			  + "\" Date=\"" + dsR.date
+	    	  rows += "<ROW DOY=\"" + dsR.getDoy()
+	    			  + "\" Parcel=\"" + dsR.getParcelId()
+	    			  + "\" BBCH=\"" + dsR.getBbch()
+	    			  + "\" GDD=\"" + dsR.getGdd()
+	    			  + "\" Description=\"" + dsR.getDescription()
+	    			  + "\" Date=\"" + dsR.getDate()
 	    			  + "\"/>";
 	      }
 	      rows += "</ROWS>";
 	      return rows;
 	   }
+	
 }

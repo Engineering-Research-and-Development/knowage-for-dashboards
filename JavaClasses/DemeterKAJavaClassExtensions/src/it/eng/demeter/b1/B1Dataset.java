@@ -5,25 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import it.eng.demeter.c1.C1ParcelData;
+import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
-public class B1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet{
+public class B1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
 	
-	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-	static LocalDateTime now = LocalDateTime.now();
+	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+	//private static LocalDateTime now = LocalDateTime.now();
 	
-	@Override
+	/*@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
 	}
@@ -42,11 +37,12 @@ public class B1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		}
 		
 		return ds;
-	}
+	}*/
 	
-	public static String aimReaderForB1(String urlToRead) throws Exception, JSONException {
+	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
+		//public static String aimReaderForB1(String urlToRead) throws Exception, JSONException {
 		/*Requesting AIM*/
-		StringBuilder aim = new StringBuilder();
+		/*StringBuilder aim = new StringBuilder();
 	    URL url = new URL(urlToRead);
 	    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	    conn.setRequestMethod("GET");
@@ -55,7 +51,7 @@ public class B1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	    while ((line = rd.readLine()) != null) {
 	       aim.append(line);
 	    }
-	    rd.close();
+	    rd.close();*/
 	      
 	    String rows = "";
 	    rows = "<ROWS>";
@@ -128,6 +124,7 @@ public class B1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	    }
 	    catch (JSONException e) {
 	    	e.printStackTrace();
+	    	logger.error(e.getMessage(), e.getCause());
 	    }
 	    
 	    /*Creating records for dataset*/
@@ -258,6 +255,7 @@ public class B1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	    	dsRListTemp.clear();
 	    });
 	    
+	    LocalDateTime now = LocalDateTime.now();
 	    /*Exporting Records to XML KA format*/
 	    for(B1DatasetRecord dsR:dsRList) {
 	    	rows += "<ROW ParcelID=\"" + dsR.parcelID.split("AgriParcel:")[1]

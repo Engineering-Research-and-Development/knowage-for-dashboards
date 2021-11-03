@@ -9,11 +9,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class F2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet{
+
+public class F2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet {
+	
+	static protected Logger logger = Logger.getLogger(F2Dataset.class);
+	
 	@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
@@ -32,6 +37,7 @@ public class F2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 			ds = aimReaderForF2(url_in,url_out);
 			//System.out.println(ds);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e.getCause());
 			e.printStackTrace();
 		}
 		
@@ -84,6 +90,7 @@ public class F2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		    	  }
 		   	  }
 	      } catch (JSONException e) {
+	    	  logger.error(e.getMessage(), e.getCause());
 	    	  e.printStackTrace();
 	      }
 	      
@@ -116,6 +123,7 @@ public class F2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		    	  }
 		   	  }
 	      } catch (JSONException e) {
+	    	  logger.error(e.getMessage(), e.getCause());
 	    	  e.printStackTrace();
 	      }
 	      

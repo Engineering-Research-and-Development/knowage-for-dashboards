@@ -1,37 +1,22 @@
 package it.eng.demeter.a3;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import it.eng.demeter.c1.C1AgriCrop;
-import it.eng.demeter.c1.C1Dataset;
-import it.eng.demeter.c1.C1DatasetRecord;
-import it.eng.demeter.c1.C1ParcelData;
-import it.eng.demeter.c1.C1Zone;
+import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
-public class A3Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet {
+public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
 
-	String url = "";
-	private static final Logger logger = LogManager.getLogger(A3Dataset.class);
+	//String url = "";
+	//private static final Logger logger = LogManager.getLogger(A3Dataset.class);
 
-	@Override
+	/*@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
 	}
@@ -59,12 +44,13 @@ public class A3Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		}
 
 		return ds;
-	}
+	}*/
 
-	public static String aimReaderForA3(String urlToRead) throws Exception, JSONException {
+	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
+		//public static String aimReaderForA3(String urlToRead) throws Exception, JSONException {
 	      
 		  /*Requesting AIM*/
-		  StringBuilder aim = new StringBuilder();
+		  /*StringBuilder aim = new StringBuilder();
 	      URL url = new URL(urlToRead);
 	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	      conn.setRequestMethod("GET");
@@ -73,7 +59,7 @@ public class A3Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	      while ((line = rd.readLine()) != null) {
 	         aim.append(line);
 	      }
-	      rd.close();
+	      rd.close();*/
 	      
 	      String rows = "";
 	      rows = "<ROWS>";
@@ -169,6 +155,7 @@ public class A3Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		   	  }
 	      } catch (JSONException e) {
 	    	  e.printStackTrace();
+	    	  logger.error(e.getMessage(), e.getCause());
 	      }
 	      
 	      /*Creating records for dataset*/
