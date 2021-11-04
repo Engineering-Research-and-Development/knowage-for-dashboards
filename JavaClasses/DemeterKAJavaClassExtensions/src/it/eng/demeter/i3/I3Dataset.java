@@ -1,20 +1,22 @@
 package it.eng.demeter.i3;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DecimalFormat;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import it.eng.demeter.DemeterAbstractJavaClassDataSet;
-
-public class I3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
-	
-	/*@Override
+public class I3Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet {
+	@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
 	}
@@ -37,13 +39,12 @@ public class I3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		}
 		
 		return ds;
-	}*/
+	}
 	
-	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
-		//public static String aimReaderForI3(String urlToRead) throws Exception, JSONException {
+	public static String aimReaderForI3(String urlToRead) throws Exception, JSONException {
 		  
 		  /*Requesting AIM*/
-		  /*StringBuilder aim = new StringBuilder();
+		  StringBuilder aim = new StringBuilder();
 	      URL url = new URL(urlToRead);
 	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	      conn.setRequestMethod("GET");
@@ -52,7 +53,7 @@ public class I3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 	      while ((line = rd.readLine()) != null) {
 	         aim.append(line);
 	      }
-	      rd.close();*/
+	      rd.close();
 	      
 	      String rows = "";
 	      rows = "<ROWS>";
@@ -106,7 +107,6 @@ public class I3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		    	  }
 		   	  }
 	      } catch (JSONException e) {
-	    	  logger.error(e.getMessage(), e.getCause());
 	    	  e.printStackTrace();
 	      }
 	      
