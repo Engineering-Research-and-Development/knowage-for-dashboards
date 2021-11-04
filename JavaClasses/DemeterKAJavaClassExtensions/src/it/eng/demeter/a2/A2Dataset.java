@@ -14,6 +14,8 @@ import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
 public class A2Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
 	
+	
+	
 	/*@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
