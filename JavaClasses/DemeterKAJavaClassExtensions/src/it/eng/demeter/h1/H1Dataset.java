@@ -1,21 +1,15 @@
 package it.eng.demeter.h1;
 
-import java.util.List;
-import java.util.Map;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
-public class H1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet{
+
+public class H1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
 	
-	@Override
+	/*@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
 	}
@@ -34,12 +28,13 @@ public class H1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		}
 		
 		return ds;
-	}
+	}*/
 	
-	public static String milkQualityReverseTranslator(String urlToRead) throws Exception, JSONException {
+	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
+		//public static String milkQualityReverseTranslator(String urlToRead) throws Exception, JSONException {
 	      
 	      /*Chiamo il servizio di acquisizione AIM*/
-	      StringBuilder aim = new StringBuilder();
+	      /*StringBuilder aim = new StringBuilder();
 	      URL url = new URL(urlToRead);
 	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	      conn.setRequestMethod("GET");
@@ -48,7 +43,7 @@ public class H1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	      while ((line = rd.readLine()) != null) {
 	         aim.append(line);
 	      }
-	      rd.close();
+	      rd.close();*/
 	      
 	      /*Conversione della stringa AIM in JSON*/
 	      JSONObject jsonObject = new JSONObject(aim.toString());
@@ -77,9 +72,9 @@ public class H1Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	      String rows = "";
 	      rows = "<ROWS>";
 	      
-	      /*Ogni elemento del grafo è costitituito da 13 sezioni
+	      /*Ogni elemento del grafo ï¿½ costitituito da 13 sezioni
 		  Le metriche, che non vanno considerate in questa lettura, sono presenti solo nel primo elemento
-		  e quindi il contatore "l" partirà da 1*/
+		  e quindi il contatore "l" partirï¿½ da 1*/
 	      
 	      for (int l = 1; l < CSVjsonArray.length(); l+=13){
 			  try {

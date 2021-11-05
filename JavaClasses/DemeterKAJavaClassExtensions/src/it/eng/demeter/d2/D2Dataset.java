@@ -1,21 +1,17 @@
 package it.eng.demeter.d2;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class D2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet{
-	@Override
+import it.eng.demeter.DemeterAbstractJavaClassDataSet;
+
+public class D2Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
+	
+	/*@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
 	}
@@ -34,11 +30,12 @@ public class D2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		}
 		
 		return ds;
-	}
+	}*/
 	
-	public static String aimReaderForD2(String urlToRead) throws Exception, JSONException {
+	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
+		//private static String aimReaderForD2(String urlToRead) throws Exception, JSONException {
 		/*Requesting AIM*/
-		StringBuilder aim = new StringBuilder();
+		/*StringBuilder aim = new StringBuilder();
 	    URL url = new URL(urlToRead);
 	    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	    conn.setRequestMethod("GET");
@@ -47,7 +44,7 @@ public class D2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	    while ((line = rd.readLine()) != null) {
 	       aim.append(line);
 	    }
-	    rd.close();
+	    rd.close();*/
 	      
 	    String rows = "";
 	    rows = "<ROWS>";
@@ -83,6 +80,7 @@ public class D2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 	        }
 	    }
 	    catch (JSONException e) {
+	    	logger.error(e.getMessage(), e.getCause());
 	    	e.printStackTrace();
 	    }
 	    

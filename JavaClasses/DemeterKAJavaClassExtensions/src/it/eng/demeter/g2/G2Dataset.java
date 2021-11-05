@@ -8,11 +8,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class G2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet{
+	
+	static protected Logger logger = Logger.getLogger(G2Dataset.class);
+	
 	@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
@@ -31,6 +35,7 @@ public class G2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 			ds = aimReaderForG2(url_in,url_out);
 			//System.out.println(ds);
 		} catch (Exception e) {
+			logger.error(e.getMessage(), e.getCause());
 			e.printStackTrace();
 		}
 		
@@ -91,6 +96,7 @@ public class G2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		    	  }
 		   	  }
 	      } catch (JSONException e) {
+	    	  logger.error(e.getMessage(), e.getCause());
 	    	  e.printStackTrace();
 	      }
 	      
@@ -128,6 +134,7 @@ public class G2Dataset implements it.eng.spagobi.tools.dataset.bo.IJavaClassData
 		    	  }
 		   	  }
 	      } catch (JSONException e) {
+	    	  logger.error(e.getMessage(), e.getCause());
 	    	  e.printStackTrace();
 	      }
 	      
