@@ -13,6 +13,7 @@ import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
 public class C2Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
 
+	private static final String DATASET_CONTENT = "DATASET_CONTENT";
 	private String dsContent = "PARCEL";
 
 	/*@Override
@@ -55,7 +56,7 @@ public class C2Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 
 		try {
 			/* Specific for C2 DataSet */
-			dsContent = parameters.get("DATASET_CONTENT").toString();
+			dsContent = parameters.get(DATASET_CONTENT).toString();
 			dsContent = dsContent.replaceAll("\'","");
 			/**/			
 		} catch (Exception e) {

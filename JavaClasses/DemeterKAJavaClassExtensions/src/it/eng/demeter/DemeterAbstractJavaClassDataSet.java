@@ -19,6 +19,11 @@ import it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet;
 
 public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataSet {
 
+	private static final String HEADER = "HEADER_";
+	private static final String BODY = "BODY_";
+	private static final String HTTP_METHOD = "HTTP_METHOD";
+	protected static final String URL = "URL";
+	
 	static protected Logger logger = Logger.getLogger(DemeterAbstractJavaClassDataSet.class);
 	
 	@Override
@@ -30,10 +35,10 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 	public String getValues(Map profile, Map parameters) {
 		String ds = null;
 		try {
-			String urlToRead = parameters.get("URL").toString();
+			String urlToRead = parameters.get(URL).toString();
 			String http_method = "GET";
-			if(parameters.containsKey("HTTP_METHOD")) {
-				http_method = (String)parameters.get("HTTP_METHOD");
+			if(parameters.containsKey(HTTP_METHOD)) {
+				http_method = (String)parameters.get(HTTP_METHOD);
 				http_method = http_method.replaceAll("'", "");
 			}
 
@@ -44,13 +49,13 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 
 				Set<String> parametersKeySet = parameters.keySet();
 				for (String keyCurr : parametersKeySet) {
-					if(keyCurr.startsWith("BODY_")) {
+					if(keyCurr.startsWith(BODY)) {
 						String bodyParameter = (String)parameters.get(keyCurr);
 					
 						bodyParameter.replaceAll("'", "");
 						
 						jsonBody.put(keyCurr.substring(5), bodyParameter);
-					} else if(keyCurr.startsWith("HEADER_")) {
+					} else if(keyCurr.startsWith(HEADER)) {
 						String headerParameter = (String)parameters.get(keyCurr);
 						
 						headerParameters.put(keyCurr.substring(7), headerParameter.replaceAll("'", ""));
@@ -62,6 +67,8 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 
 			logger.info("->" + http_method + "<-");
 			System.out.println("->" + http_method + "<-");
+			logger.info("->" + urlToRead + "<-");
+			System.out.println("->" + urlToRead + "<-");
 			logger.info("headers-> " + convertWithStream(headerParameters));
 			System.out.println("headers-> " + convertWithStream(headerParameters));
 			logger.info("body-> " + jsonBody);
