@@ -187,7 +187,7 @@ public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		    	  case "WeatherObserved":
 		    		  A3WeatherData wd = new A3WeatherData();
 		    		  wd.setId(jsonArray.getJSONObject(l).get("@id").toString());
-		    		  wd.setParcelId(jsonArray.getJSONObject(l).get("http://www.w3.org/ns/sosa/hasFeatureOfInterest").toString());
+		    		  wd.setParcelRecordId(jsonArray.getJSONObject(l).get("http://www.w3.org/ns/sosa/hasFeatureOfInterest").toString());
 		    		  wd.setDate(jsonArray.getJSONObject(l).get("https://uri.fiware.org/ns/data-models#dateObserved").toString().split("T")[0]);
 		    		  wd.setHeat(jsonArray.getJSONObject(l).getDouble("scorchingHeat"));
 		    		  wd.setWinter(jsonArray.getJSONObject(l).getDouble("winterHarshness"));
@@ -259,7 +259,7 @@ public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 	    						  }
 	    					  }); 
 	    					  weather.forEach((wId,wObj) -> {
-	    						  if(wObj.getParcelId().equals(prObj.getParcelId())) {
+	    						  if(wObj.getParcelRecordId().equals(prObj.getParcelId())) {
 	    							  dsR.setScorchingHeat(Double.toString(wObj.getHeat()));
 	    							  dsR.setWinterHarshness(Double.toString(wObj.getWinter()));
 	    							  dsR.setObservationDate(wObj.getDate());	    						
