@@ -61,7 +61,7 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 
 ## D.1: Emission
 
-**TO DO...**
+![D1 Dashboard](/screenshots/d1emission.png)
 
 ## D.2: Field Operation
 

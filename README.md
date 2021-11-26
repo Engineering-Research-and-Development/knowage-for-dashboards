@@ -53,12 +53,12 @@ The dashboard catalogue will list all the dashboards currently released on Knowa
 | :--- | :----------: | :------------------------------------------ | :---------: |
 | A    | A1           | Bart Beusen (VITO)                          | 100%        |
 | A    | A2           | Izar Azpiroz (VICOM)                        | 100%        |
-| A    | A3           | Mihai Angheloiu (SIVECO)                    | 90%         |
+| A    | A3           | Mihai Angheloiu (SIVECO)                    | 100%        |
 | A    | A5           | Ross Campbell (ICE)                         | 100%        |
 | B    | B1, B3, B4   | Manuel Mora (UMU)                           | 100%        |
-| C    | C1           | Mihai Angheloiu (SIVECO)                    | 90%         |
+| C    | C1           | Mihai Angheloiu (SIVECO)                    | 100%        |
 | C    | C2           | Stefan Louriero (Ubiwhere)                  | 100%        |
-| D    | D1           | Andreas Schröder (John Deere)               | 0%          |
+| D    | D1           | Andreas Schröder (John Deere)               | 100%        |
 | D    | D2           | Nenad Gligoric (DNET)                       | 100%        |
 | D    | D3           | Isabelle Piccard (VITO)                     | 100%        |
 | E    | E1           | Ross Campbell (ICE), Sergio Salmeron (ATOS) | 100%        |
@@ -142,7 +142,7 @@ services:
 
    knowagedb:
       hostname: knowagedb
-      image: demeterengteam/knowagedb-7.2.0:v2.0
+      image: demeterengteam/knowagedb-7.2.0:v2.2
       networks:
          - hostnet
       ports:
@@ -155,7 +155,7 @@ services:
 
    knowage:
       hostname: knowage
-      image: demeterengteam/knowage-7.2.0:idm-v2.0
+      image: demeterengteam/knowage-7.2.0:idm-v2.2
       networks:
          - hostnet
       ports:
