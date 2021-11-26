@@ -120,7 +120,12 @@ public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		      JSONArray jsonArray = new JSONArray(jsonObject.get("@graph").toString());
 		      /*Reading elements*/
 		      for (int l=0; l<jsonArray.length(); l++){
-		    	  String Elemento = jsonArray.getJSONObject(l).get("@type").toString();
+		    	  String Elemento = "";
+		    	  if (jsonArray.getJSONObject(l).has("@type")) {
+		    		  Elemento = jsonArray.getJSONObject(l).get("@type").toString();
+		    	  } else {
+		    		  Elemento = jsonArray.getJSONObject(l).get("type").toString();
+		    	  } 
 		    	  switch (Elemento) {
 		    	  case "AgriFarm":
 		    		  A3FarmData fd = new A3FarmData();
@@ -138,7 +143,7 @@ public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		    	  case "AgriParcelRecord":
 		    		  A3ParcelRecord pr = new A3ParcelRecord();
 		    		  pr.setId(jsonArray.getJSONObject(l).get("@id").toString());
-		    		  JSONArray containsZones = new JSONArray(jsonArray.getJSONObject(l).get("containsZone").toString());  
+		    		  JSONArray containsZones = new JSONArray(jsonArray.getJSONObject(l).get("http://foodie-cloud.com/model/foodie#containsZone").toString());  
 		    		  for (int x=0; x<containsZones.length(); x++) {
 		    			  A3Zone zone = new A3Zone();
 	    				  zone.setId(containsZones.get(x).toString());
@@ -150,6 +155,7 @@ public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		    		  for (int x=0; x<arrayResults.length(); x++) {
 		    			  A3Result result = new A3Result();
 	    				  result.setValue(arrayResults.get(x).toString());
+	    				  result.setValue(result.getValue().replaceAll("°", "&#176;"));
 	    				  result.setParcelRecordId(jsonArray.getJSONObject(l).get("@id").toString() + "." + x);
 	    				  results.put(result.getParcelRecordId(), result); 
 		    		  }
@@ -259,7 +265,7 @@ public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 	    						  }
 	    					  }); 
 	    					  weather.forEach((wId,wObj) -> {
-	    						  if(wObj.getParcelRecordId().equals(prObj.getParcelId())) {
+	    						  if(wObj.getParcelRecordId().equals(prId)) {
 	    							  dsR.setScorchingHeat(Double.toString(wObj.getHeat()));
 	    							  dsR.setWinterHarshness(Double.toString(wObj.getWinter()));
 	    							  dsR.setObservationDate(wObj.getDate());	    						

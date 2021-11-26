@@ -4,14 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +30,7 @@ import it.eng.demeter.h2.H2Dataset;
 import it.eng.demeter.f2.F2Dataset;
 import it.eng.demeter.i1.I1Dataset;
 import it.eng.demeter.c2.C2Dataset;
+import it.eng.demeter.d1.D1Dataset;
 
 public class MainForTestDatasetOutput {
 
@@ -45,6 +42,7 @@ public class MainForTestDatasetOutput {
 		D3Dataset d3 = new D3Dataset();
 		G1Dataset g1 = new G1Dataset();
 		B1Dataset b1 = new B1Dataset();
+		D1Dataset d1 = new D1Dataset();
 		D2Dataset d2 = new D2Dataset();
 		C1Dataset c1 = new C1Dataset();
 		E2Dataset e2 = new E2Dataset();
@@ -61,11 +59,11 @@ public class MainForTestDatasetOutput {
 		A5Dataset a5 = new A5Dataset();
 		A3Dataset a3 = new A3Dataset();
 		try {
-			  String Url = "https://luidicorra.pythonanywhere.com/A3New";
+			  String Url = "https://luidicorra.pythonanywhere.com/D1";
 		      FileWriter myWriter = new FileWriter("C:\\Users\\luidicorra\\Desktop\\Test\\filename.xml");
 		      // UNLOCK THIS LINE AND CHANGE THE DATASET CLASS TO TEST
 		      // REMEMBER TO COPY THE METHOD AT THE END OF THIS PAGE INSIDE BEING TESTED.
-		      //myWriter.write(a3.debugTest(getAim(Url)));
+		      //myWriter.write(d1.debugTest(getAim(Url)));
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
@@ -101,7 +99,7 @@ try {
 	
 	//COPY THIS METHOD INSIDE A COMPONENT DATASET CLASS AND CALL IT INTO THIS MAIN FOR TESTS
 	/*public String debugTest(StringBuilder aim) throws JSONException, Exception {
-	return aimTranslator(aim);
-}*/
+		return aimTranslator(aim);
+	  }*/
 
 }

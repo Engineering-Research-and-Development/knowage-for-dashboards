@@ -13,7 +13,7 @@ public class C1DatasetRecord {
 	private String wateringFrequency = "none";
 	private String sprayingCondition = "none";
 	private String fertiliserName = "none";
-	private String fertiliserQty = "0";
+	private String fertiliserQty = "";
 	private String nitrogenLevel = "0";
 	private String totalAffectedArea = "0";
 	private String parcelComment = "none";

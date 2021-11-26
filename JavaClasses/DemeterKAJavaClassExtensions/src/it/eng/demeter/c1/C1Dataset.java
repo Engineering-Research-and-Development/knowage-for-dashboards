@@ -122,7 +122,12 @@ public class C1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		      
 		      /*Reading elements*/
 		      for (int l=0; l<jsonArray.length(); l++){
-		    	  String Elemento = jsonArray.getJSONObject(l).get("@type").toString();
+		    	  String Elemento = "";
+		    	  if (jsonArray.getJSONObject(l).has("@type")) {
+		    		  Elemento = jsonArray.getJSONObject(l).get("@type").toString();
+		    	  } else {
+		    		  Elemento = jsonArray.getJSONObject(l).get("type").toString();
+		    	  }
 		    	  switch (Elemento) {
 		    	  case "AgriFarm":
 		    		  C1FarmData fd = new C1FarmData();
@@ -189,7 +194,9 @@ public class C1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		    		  po.setId(jsonArray.getJSONObject(l).get("@id").toString());
 		    		  po.setParcelId(jsonArray.getJSONObject(l).get("hasAgriParcel").toString());
 		    		  po.setFertiliserTypeId(jsonArray.getJSONObject(l).get("hasAgriProductType").toString());
-					  po.setQuantity(jsonArray.getJSONObject(l).get("quantity").toString());
+		    		  if (jsonArray.getJSONObject(l).has("quantity")) {
+		    			  po.setQuantity(jsonArray.getJSONObject(l).get("quantity").toString());
+			    	  }
 		    		  parcelOperations.put(po.getId(), po);
 		    		  break;	
 		    	  case "AgriProductType":
