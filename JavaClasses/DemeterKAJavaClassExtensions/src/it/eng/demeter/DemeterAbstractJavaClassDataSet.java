@@ -24,6 +24,8 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 	private static final String HTTP_METHOD = "HTTP_METHOD";
 	protected static final String URL = "URL";
 	
+	protected String concrete_url = null;
+	
 	static protected Logger logger = Logger.getLogger(DemeterAbstractJavaClassDataSet.class);
 	
 	@Override
@@ -63,6 +65,14 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 				}
 			}
 
+			/* add to allow forcing the URL */
+			if(concrete_url != null && !concrete_url.isEmpty()) {
+				logger.info("Using concrete_url->" + concrete_url);
+				urlToRead = concrete_url;
+			}
+			/**/
+			
+			
 			urlToRead = urlToRead.replaceAll("\'","");
 
 			logger.info("->" + http_method + "<-");
