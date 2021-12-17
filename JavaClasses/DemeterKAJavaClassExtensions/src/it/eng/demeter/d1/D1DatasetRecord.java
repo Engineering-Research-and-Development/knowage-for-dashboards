@@ -19,7 +19,21 @@ public class D1DatasetRecord {
 	private String error = "-";
 	private String errorDetail = "-";
 	private String note = "-";
+	private String uniqueId = "";
+	private String filterForDateTable = ""; //true of false
 	
+	public String getUniqueId() {
+		return uniqueId;
+	}
+	public void setUniqueId(String uniqueId) {
+		this.uniqueId = uniqueId;
+	}
+	public String getFilterForDateTable() {
+		return filterForDateTable;
+	}
+	public void setFilterForDateTable(String filterForDateTable) {
+		this.filterForDateTable = filterForDateTable;
+	}
 	public String getDateEvaluation() {
 		return dateEvaluation;
 	}

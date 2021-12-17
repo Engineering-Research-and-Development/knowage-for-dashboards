@@ -29,17 +29,39 @@ public class D1Dataset extends DemeterAbstractJavaClassDataSet {
 				Iterator<String> keyIt = jsonArray.getJSONObject(l).keys();
 				while (keyIt.hasNext()) {
 					String key = keyIt.next();
+					String uniqueId = key.split("_")[0]+key.split("_")[1]+key.split("_")[2];
+					String machineId = jsonArray.getJSONObject(l).getJSONObject(key).get("MGDL_ID").toString();
+					String evaluationDate = key.split("_")[0].split("T")[0];
+					String dateStart = key.split("_")[1].split("T")[0];
+					String dateEnd = key.split("_")[2].split("T")[0];
+					String timeStart = key.split("_")[1].split("T")[1].replaceAll("Z","");
+					String timeEnd = key.split("_")[2].split("T")[1].replaceAll("Z","");
+					D1DatasetRecord dsRforDate = new D1DatasetRecord();
+					dsRforDate.setFilterForDateTable("true");
+					dsRforDate.setMachineId(machineId);
+					dsRforDate.setUniqueId(uniqueId);
+					dsRforDate.setDateEvaluation(evaluationDate);
+					dsRforDate.setDateStart(dateStart);
+					dsRforDate.setDateEnd(dateEnd);
+					dsRforDate.setTimeStart(timeStart);
+					dsRforDate.setTimeEnd(timeEnd);
+					//Remove Seconds from Times
+					dsRforDate.setTimeStart(dsRforDate.getTimeStart().split(":")[0]+":"+dsRforDate.getTimeStart().split(":")[1]);
+					dsRforDate.setTimeEnd(dsRforDate.getTimeEnd().split(":")[0]+":"+dsRforDate.getTimeEnd().split(":")[1]);
+					dsRList.add(dsRforDate);
 					JSONObject resultsObject = jsonArray.getJSONObject(l).getJSONObject(key).getJSONObject("results");
 					Iterator<String> resultKeyIt = resultsObject.keys();
 					while (resultKeyIt.hasNext()) {
 						String resultKey = resultKeyIt.next();
 						D1DatasetRecord dsR = new D1DatasetRecord();
-						dsR.setMachineId(jsonArray.getJSONObject(l).getJSONObject(key).get("MGDL_ID").toString());
-						dsR.setDateEvaluation(key.split("_")[0].split("T")[0]);
-						dsR.setDateStart(key.split("_")[1].split("T")[0]);
-						dsR.setDateEnd(key.split("_")[2].split("T")[0]);
-						dsR.setTimeStart(key.split("_")[1].split("T")[1].replaceAll("Z",""));
-						dsR.setTimeEnd(key.split("_")[2].split("T")[1].replaceAll("Z",""));
+						dsR.setFilterForDateTable("false");
+						dsR.setMachineId(machineId);
+						dsR.setUniqueId(uniqueId);
+						dsR.setDateEvaluation(evaluationDate);
+						dsR.setDateStart(dateStart);
+						dsR.setDateEnd(dateEnd);
+						dsR.setTimeStart(timeStart);
+						dsR.setTimeEnd(timeEnd);
 						//Remove Seconds from Times
 						dsR.setTimeStart(dsR.getTimeStart().split(":")[0]+":"+dsR.getTimeStart().split(":")[1]);
 						dsR.setTimeEnd(dsR.getTimeEnd().split(":")[0]+":"+dsR.getTimeEnd().split(":")[1]);
@@ -73,6 +95,7 @@ public class D1Dataset extends DemeterAbstractJavaClassDataSet {
 			
 			for(D1DatasetRecord dsR:dsRList) {
 				rows += "<ROW machineId=\"" + dsR.getMachineId()
+						+ "\" uniqueId=\"" + dsR.getUniqueId()
 						+ "\" evaluationDate=\"" + dsR.getDateEvaluation()
 						+ "\" startDate=\"" + dsR.getDateStart()
 						+ "\" endDate=\"" + dsR.getDateEnd()
@@ -83,6 +106,7 @@ public class D1Dataset extends DemeterAbstractJavaClassDataSet {
 						+ "\" error=\"" + dsR.getError()
 						+ "\" errorDetail=\"" + dsR.getErrorDetail()
 						+ "\" note=\"" + dsR.getNote()
+						+ "\" filterForDateTable=\"" + dsR.getFilterForDateTable()
 						+ "\"/>";
 			}
 			rows += "</ROWS>";
