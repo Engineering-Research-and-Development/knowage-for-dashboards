@@ -6,5 +6,7 @@
 	<classpathentry kind="lib" path="lib/knowage-utils-7.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/json-20190722.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/spago-core-2.3.0.jar" sourcepath="C:/Users/luidicorra/.m2/repository/it/eng/spago/spago-core/2.3.0/spago-core-2.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/knowage-dao-7.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
