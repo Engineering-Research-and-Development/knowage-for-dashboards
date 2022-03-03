@@ -142,7 +142,7 @@ services:
 
    knowagedb:
       hostname: knowagedb
-      image: demeterengteam/knowagedb-7.2.0:v2.3
+      image: demeterengteam/knowagedb-7.2.0:v2.4
       networks:
          - hostnet
       ports:
@@ -155,7 +155,7 @@ services:
 
    knowage:
       hostname: knowage
-      image: demeterengteam/knowage-7.2.0:idm-v2.3
+      image: demeterengteam/knowage-7.2.0:idm-v2.4
       networks:
          - hostnet
       ports:

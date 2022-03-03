@@ -41,7 +41,7 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 			String http_method = "GET";
 			if(parameters.containsKey(HTTP_METHOD)) {
 				http_method = (String)parameters.get(HTTP_METHOD);
-				http_method = http_method.replaceAll("'", "");
+				http_method = http_method.replaceAll("\'", "");
 			}
 
 			JSONObject jsonBody = new JSONObject();
@@ -54,13 +54,13 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 					if(keyCurr.startsWith(BODY)) {
 						String bodyParameter = (String)parameters.get(keyCurr);
 					
-						bodyParameter.replaceAll("'", "");
-						
+						bodyParameter = bodyParameter.replaceAll("\'", "");
+
 						jsonBody.put(keyCurr.substring(5), bodyParameter);
 					} else if(keyCurr.startsWith(HEADER)) {
 						String headerParameter = (String)parameters.get(keyCurr);
 						
-						headerParameters.put(keyCurr.substring(7), headerParameter.replaceAll("'", ""));
+						headerParameters.put(keyCurr.substring(7), headerParameter.replaceAll("\'", ""));
 					} 
 				}
 			}

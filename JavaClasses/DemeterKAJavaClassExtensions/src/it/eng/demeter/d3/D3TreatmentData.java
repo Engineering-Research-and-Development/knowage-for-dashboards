@@ -4,8 +4,8 @@ public class D3TreatmentData {
 	String id = "";
 	String name = "";
 	String interventionZoneId = "";
-	int areaDoseMax = 0;
-	int areaDoseMin = 0;
+	//int areaDoseMax = 0;
+	//int areaDoseMin = 0;
 	String description = "";
-	int quantity = 0;
+	String quantity = "0";
 }

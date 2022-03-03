@@ -167,10 +167,10 @@ public class B1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 	    						dsR.soilMoistureEstimation = imgVal;
 	    						break;
 	    					case "anomaliesImg":
-	    						dsR.soilMoistureLocalColorRange = imgVal;
+	    						dsR.cropAnomaliesDetection = imgVal;
 	    						break;
 	    					case "soilMoistureImgLCR":
-	    						dsR.cropAnomaliesDetection = imgVal;
+	    						dsR.soilMoistureLocalColorRange = imgVal;
 	    						break;	
 	    					case "anomaliesImgLCR":
 	    						dsR.cropAnomaliesLocalColorRange = imgVal;

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import it.eng.demeter.f2.F2Dataset;
 import it.eng.demeter.i1.I1Dataset;
 import it.eng.demeter.c2.C2Dataset;
 import it.eng.demeter.d1.D1Dataset;
+import it.eng.demeter.d3.D3FieldData;
 
 public class MainForTestDatasetOutput {
 
@@ -58,12 +60,13 @@ public class MainForTestDatasetOutput {
 		I3Dataset i3 = new I3Dataset();
 		A5Dataset a5 = new A5Dataset();
 		A3Dataset a3 = new A3Dataset();
+		D3FieldData d3fd = new D3FieldData();
 		try {
-			  String Url = "https://luidicorra.pythonanywhere.com/D1";
+			  String Url = "https://luidicorra.pythonanywhere.com/D3Fields";
 		      FileWriter myWriter = new FileWriter("C:\\Users\\luidicorra\\Desktop\\Test\\filename.xml");
 		      // UNLOCK THIS LINE AND CHANGE THE DATASET CLASS TO TEST
 		      // REMEMBER TO COPY THE METHOD AT THE END OF THIS PAGE INSIDE BEING TESTED.
-		      //myWriter.write(d1.debugTest(getAim(Url)));
+		      //myWriter.write(d3fd.debugTest(getAim(Url,"POST")));
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
@@ -73,29 +76,52 @@ public class MainForTestDatasetOutput {
 
 	}
 	
-	public static StringBuilder getAim(String urlToRead) {
+	public static StringBuilder getAim(String urlToRead, String methodHttp) {
 		StringBuilder aim = new StringBuilder();
-try {
-		
-		URL url = new URL(urlToRead);
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("GET");
-			
-		BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		String line;
-		while ((line = rd.readLine()) != null) {
-			aim.append(line);
+		try {
+			if(!methodHttp.equals("GET")) {
+				URL url = new URL(urlToRead);
+				Map headerParameters = new HashMap<>();
+				headerParameters.put("Accept", "application/json");
+				headerParameters.put("Content-Type", "application/json");
+				JSONObject jsonBody = new JSONObject();
+				//BODY FOR D3 FIELDS
+				jsonBody.put("user", "5752f9e3-8d88-4219-804d-73aad595b765");
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod(methodHttp);
+				for (Object headerCurr : headerParameters.keySet()) {
+					con.setRequestProperty((String)headerCurr, (String)headerParameters.get(headerCurr));
+				}
+				
+				con.setDoOutput(true);
+				try(OutputStream os = con.getOutputStream()) {
+				    byte[] input = jsonBody.toString().getBytes("UTF-8");
+				    os.write(input, 0, input.length);
+				    os.close();
+				}
+				BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String line;
+				while ((line = rd.readLine()) != null) {
+					aim.append(line);
+				}
+				rd.close();
+			} else {
+				URL url = new URL(urlToRead);
+				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				con.setRequestMethod("GET");
+				BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String line;
+				while ((line = rd.readLine()) != null) {
+					aim.append(line);
+				}
+				rd.close();
+			}		
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e.getCause());
+			e.printStackTrace();
 		}
-		rd.close();
-
-
-	} catch (Exception e) {
-		logger.error(e.getMessage(), e.getCause());
-		e.printStackTrace();
-	}
-
-	return aim;
-	}
+			return aim;
+		}
 	
 	//COPY THIS METHOD INSIDE A COMPONENT DATASET CLASS AND CALL IT INTO THIS MAIN FOR TESTS
 	/*public String debugTest(StringBuilder aim) throws JSONException, Exception {

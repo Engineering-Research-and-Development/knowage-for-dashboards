@@ -38,12 +38,22 @@ public class D3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		return ds;
 	}*/
 
-	@Override
+	/*@Override
 	public String getValues(Map profile, Map parameters) {
 		logger.info("start D3Dataset.getValues(...)");
 		
 		String url = parameters.get("URL").toString();
 		String plot = parameters.get("PLOT").toString();
+		String baseRate = (String)parameters.get("BASERATE");
+		String rateUnit = (String)parameters.get("RATE_UNIT");
+		String appDate = (String)parameters.get("APPDATE");
+		String appWidth = (String)parameters.get("APPWIDTH");
+		String mode = (String)parameters.get("MODE");
+		System.out.println("BASE RATE: "+baseRate);
+		System.out.println("RATE UNIT: "+rateUnit);
+		System.out.println("APP DATE: "+appDate);
+		System.out.println("APP WIDTH: "+appWidth);
+		System.out.println("Mode: "+mode);
 		url = url.replaceAll("\'","");
 		plot = plot.replaceAll("\'","");
 		url = url + "/" + plot + "/taskmap";
@@ -52,7 +62,7 @@ public class D3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		logger.info("concrete_url->" + concrete_url + "<-");
 		
 		return super.getValues(profile, parameters);
-	}
+	}*/
 
 
 	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
@@ -69,7 +79,6 @@ public class D3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 	         aim.append(line);
 	      }
 	      rd.close();*/
-
 		String rows = "";
 		rows = "<ROWS>";
 		Map<String, D3TreatmentData> treatments = new HashMap<String, D3TreatmentData>();
@@ -89,10 +98,10 @@ public class D3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 					td.id = jsonArray.getJSONObject(l).get("@id").toString();
 					td.name = jsonArray.getJSONObject(l).get("name").toString();
 					td.interventionZoneId = jsonArray.getJSONObject(l).getJSONObject("interventionZone").get("@id").toString();
-					td.areaDoseMax = jsonArray.getJSONObject(l).getJSONObject("areaDose").getJSONObject("maximumDose").getInt("numericValue");
-					td.areaDoseMin = jsonArray.getJSONObject(l).getJSONObject("areaDose").getJSONObject("minimumDose").getInt("numericValue");
+					//td.areaDoseMax = jsonArray.getJSONObject(l).getJSONObject("areaDose").getJSONObject("maximumDose").getInt("numericValue");
+					//td.areaDoseMin = jsonArray.getJSONObject(l).getJSONObject("areaDose").getJSONObject("minimumDose").getInt("numericValue");
 					td.description = jsonArray.getJSONObject(l).get("treatmentDescription").toString();
-					td.quantity = jsonArray.getJSONObject(l).getJSONObject("quantity").getInt("numericValue");
+					td.quantity = jsonArray.getJSONObject(l).getJSONObject("quantity").get("numericValue").toString();
 					treatments.put(td.id,td);
 					break;
 				case "Plot":  
@@ -123,9 +132,9 @@ public class D3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 					D3DatasetRecord dsR = new D3DatasetRecord();
 					dsR.treatmentName = treatmentObj.name;
 					dsR.treatmentDescription = treatmentObj.description;
-					dsR.treatmentMaxDose = Integer.toString(treatmentObj.areaDoseMax);
-					dsR.treatmentMinDose = Integer.toString(treatmentObj.areaDoseMin);
-					dsR.treatmentQuantity = Integer.toString(treatmentObj.quantity);
+					//dsR.treatmentMaxDose = Integer.toString(treatmentObj.areaDoseMax);
+					//dsR.treatmentMinDose = Integer.toString(treatmentObj.areaDoseMin);
+					dsR.treatmentQuantity = treatmentObj.quantity;
 					dsR.plotCode = plotObj.code;
 					dsR.plotDescription = plotObj.description;
 					dsR.plotWKT = plotObj.wkt;
@@ -138,8 +147,8 @@ public class D3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		for(D3DatasetRecord dsR:dsRList) {
 			rows += "<ROW TreatmentName=\"" + dsR.treatmentName
 					+ "\" TreatmentDescription=\"" + dsR.treatmentDescription
-					+ "\" TreatmentMaxDose=\"" + dsR.treatmentMaxDose
-					+ "\" TreatmentMinDose=\"" + dsR.treatmentMinDose
+					//+ "\" TreatmentMaxDose=\"" + dsR.treatmentMaxDose
+					//+ "\" TreatmentMinDose=\"" + dsR.treatmentMinDose
 					+ "\" TreatmentQuantity=\"" + dsR.treatmentQuantity
 					+ "\" PlotCode=\"" + dsR.plotCode
 					+ "\" PlotDescription=\"" + dsR.plotDescription
