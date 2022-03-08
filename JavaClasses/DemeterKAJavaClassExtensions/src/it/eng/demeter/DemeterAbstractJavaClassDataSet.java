@@ -23,11 +23,11 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 	private static final String BODY = "BODY_";
 	private static final String HTTP_METHOD = "HTTP_METHOD";
 	protected static final String URL = "URL";
-	
+
 	protected String concrete_url = null;
-	
+
 	static protected Logger logger = Logger.getLogger(DemeterAbstractJavaClassDataSet.class);
-	
+
 	@Override
 	public List getNamesOfProfileAttributeRequired() {
 		return null;
@@ -53,13 +53,21 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 				for (String keyCurr : parametersKeySet) {
 					if(keyCurr.startsWith(BODY)) {
 						String bodyParameter = (String)parameters.get(keyCurr);
-					
-						bodyParameter = bodyParameter.replaceAll("\'", "");
 
-						jsonBody.put(keyCurr.substring(5), bodyParameter);
+						if(bodyParameter.startsWith("\'") && bodyParameter.endsWith("\'")) {		
+							bodyParameter = bodyParameter.replaceAll("\'", "");
+							jsonBody.put(keyCurr.substring(5), bodyParameter);
+						} else {
+
+							if(isNumericInt(bodyParameter)) { 
+								jsonBody.put(keyCurr.substring(5), Integer.parseInt(bodyParameter));
+							} else if(isNumericDouble(bodyParameter)) {
+								jsonBody.put(keyCurr.substring(5), Double.parseDouble(bodyParameter));
+							}
+						}
+
 					} else if(keyCurr.startsWith(HEADER)) {
 						String headerParameter = (String)parameters.get(keyCurr);
-						
 						headerParameters.put(keyCurr.substring(7), headerParameter.replaceAll("\'", ""));
 					} 
 				}
@@ -71,8 +79,8 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 				urlToRead = concrete_url;
 			}
 			/**/
-			
-			
+
+
 			urlToRead = urlToRead.replaceAll("\'","");
 
 			logger.info("->" + http_method + "<-");
@@ -83,27 +91,27 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 			System.out.println("headers-> " + convertWithStream(headerParameters));
 			logger.info("body-> " + jsonBody);
 			System.out.println("body-> " + jsonBody);			
-			
+
 			/*Chiamo il servizio di acquisizione AIM*/
 			StringBuilder aim = new StringBuilder();
 			URL url = new URL(urlToRead);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod(http_method);
-			
+
 			if(!http_method.equals("GET")) {
-				
+
 				for (Object headerCurr : headerParameters.keySet()) {
 					con.setRequestProperty((String)headerCurr, (String)headerParameters.get(headerCurr));
 				}
-				
+
 				con.setDoOutput(true);
 				try(OutputStream os = con.getOutputStream()) {
-				    byte[] input = jsonBody.toString().getBytes("UTF-8");
-				    os.write(input, 0, input.length);
-				    os.close();
+					byte[] input = jsonBody.toString().getBytes("UTF-8");
+					os.write(input, 0, input.length);
+					os.close();
 				}
 			}
-				
+
 			BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String line;
 			while ((line = rd.readLine()) != null) {
@@ -121,12 +129,38 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 	}
 
 	protected String convertWithStream(Map<String, String> map) {
-	    String mapAsString = map.keySet().stream()
-	      .map(key -> key + "=" + map.get(key))
-	      .collect(Collectors.joining(", ", "{", "}"));
-	    return mapAsString;
+		String mapAsString = map.keySet().stream()
+				.map(key -> key + "=" + map.get(key))
+				.collect(Collectors.joining(", ", "{", "}"));
+		return mapAsString;
 	}
-	
+
 	protected abstract String aimTranslator(StringBuilder aim) throws Exception, JSONException;
-	
+
+	protected static boolean isNumericInt(String string) {
+		int intValue;
+		if(string == null || string.equals("")) {
+			return false;
+		}
+		try {
+			intValue = Integer.parseInt(string);
+			return true;
+		} catch (NumberFormatException e) {
+		}
+		return false;
+	}
+
+	protected static boolean isNumericDouble(String string) {
+		double doubleValue;
+		if(string == null || string.equals("")) {
+			return false;
+		}
+		try {
+			doubleValue = Double.parseDouble(string);
+			return true;
+		} catch (NumberFormatException e) {
+		}
+		return false;
+	}
+
 }
