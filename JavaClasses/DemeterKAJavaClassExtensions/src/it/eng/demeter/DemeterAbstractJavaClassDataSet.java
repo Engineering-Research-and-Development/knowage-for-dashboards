@@ -21,6 +21,7 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 
 	private static final String HEADER = "HEADER_";
 	private static final String BODY = "BODY_";
+	private static final String NUMERIC_BODY = "NUMERIC_BODY_";
 	private static final String HTTP_METHOD = "HTTP_METHOD";
 	protected static final String URL = "URL";
 
@@ -53,19 +54,18 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 				for (String keyCurr : parametersKeySet) {
 					if(keyCurr.startsWith(BODY)) {
 						String bodyParameter = (String)parameters.get(keyCurr);
-
-						if(bodyParameter.startsWith("\'") && bodyParameter.endsWith("\'")) {		
+						bodyParameter = bodyParameter.replaceAll("\'", "");
+						jsonBody.put(keyCurr.substring(5), bodyParameter);
+					} else if(keyCurr.startsWith(NUMERIC_BODY)) {
+						String bodyParameter = (String)parameters.get(keyCurr);
+						if (bodyParameter.startsWith("\'")) {
 							bodyParameter = bodyParameter.replaceAll("\'", "");
-							jsonBody.put(keyCurr.substring(5), bodyParameter);
-						} else {
-
-							if(isNumericInt(bodyParameter)) { 
-								jsonBody.put(keyCurr.substring(5), Integer.parseInt(bodyParameter));
-							} else if(isNumericDouble(bodyParameter)) {
-								jsonBody.put(keyCurr.substring(5), Double.parseDouble(bodyParameter));
-							}
 						}
-
+						if(isNumericInt(bodyParameter)) {
+							jsonBody.put(keyCurr.substring(13), Integer.parseInt(bodyParameter));
+						} else if(isNumericDouble(bodyParameter)) {
+							jsonBody.put(keyCurr.substring(13), Double.parseDouble(bodyParameter));
+						}
 					} else if(keyCurr.startsWith(HEADER)) {
 						String headerParameter = (String)parameters.get(keyCurr);
 						headerParameters.put(keyCurr.substring(7), headerParameter.replaceAll("\'", ""));
