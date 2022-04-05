@@ -109,8 +109,8 @@ If this test is not successful, then you must check with the system administrato
 
 4. Copy and paste the content below into the docker-compose file. 
 	* Note: remember to check and change the **image** tag version with the latest one: 
-		* **image: demeterengteam/knowagedb-7.2.0:<mark>v2.4</mark>**
-		* **image: demeterengteam/knowage-7.2.0:<mark>idm-v2.4</mark>**
+		* **image: demeterengteam/knowagedb-7.2.0:<mark>v2.5</mark>**
+		* **image: demeterengteam/knowage-7.2.0:<mark>idm-v2.5</mark>**
 
 *docker-compose.yml:*
 ```
@@ -119,7 +119,7 @@ services:
 
    knowagedb:
       hostname: knowagedb
-      image: demeterengteam/knowagedb-7.2.0:v2.4
+      image: demeterengteam/knowagedb-7.2.0:v2.5
       networks:
          - hostnet
       ports:
@@ -132,7 +132,7 @@ services:
 
    knowage:
       hostname: knowage
-      image: demeterengteam/knowage-7.2.0:idm-v2.4
+      image: demeterengteam/knowage-7.2.0:idm-v2.5
       networks:
          - hostnet
       ports:
@@ -208,18 +208,20 @@ http://localhost:8080/knowage/servlet/AdapterHTTP?PAGE=LoginPage&NEW_SESSION=TRU
 
 The following table shows, for each **Dashboard (DSS)**, the name, which pilots use it and the datasets name that feed it.
 
-| Component | DSS        | DSS Name                                        | Pilot                   | Datasets Name                                                                    |
+| Component | DSS        | DSS Name                                        | Pilot                   | Datasets Name                                                                   |
 |-----------|------------|-------------------------------------------------|-------------------------|---------------------------------------------------------------------------------|
-| A1        | DSS1.A1    | A1 Plant Yield Estimation                       | 1.1, 1.2, 1.3, 1.4, 3.4 | 4A1.DSS1.FieldBordersLayer, 4A1.DSS1.PredictedFieldValueLayer                   |
+| A1        | DSS1.A1    | A1 Plant Yield Estimation                       | 1.1, 1.2, 1.3, 3.4      | 4A1_YieldPrediction                                                             |
+| A1        | DSS1.A1    | A1 Training Plant Yield Estimation              | 1.1, 1.2, 1.3, 3.4      | 4A1_YieldPredictionTraining                                                     |
 | A2        | DSS2.A2    | A2 Plant Phenology Estimation                   | 3.1                     | 4A2_PhenologyEstimation                                                         |
 | A3        | DSS3.A3    | A3 Plant Stress Detection                       | 1.4                     | 4A3_PlantStressData                                                             |
 | A5        | DSS5.A5    | A5 Estimate Beehive                             | 5.3                     | 4A5_EstimateBeehive                                                             |
 | B1        | DSS1.B1    | B1 Irrigation Management                        | 1.1, 1.2, 1.3, 3.1, 3.2 | 4B1_IrrigationManagement                                                        |
 | C1        | DSS1.C1    | C1 Nitrogen Balance Model                       | 1.3, 1.4, 2.3, 3.1, 3.2 | 4C1_NitrogenBalanceData                                                         |
 | C2        | DSS1.C2.D1 | C2 Nutrient and Sowing recommendation           | 1.3, 1.4, 2.3, 3.1, 3.2 | 4C2_NutrientMonitorZones, 4C2_NutrientMonitorWeather, 4C2_NutrientMonitorParcel |
-| D1        | DSS1.D1    | Emission                                        | 2.1                     | 4D1_Emission                                                                             |
+| D1        | DSS1.D1    | D1 Emission                                     | 2.1                     | 4D1_Emission                                                                    |
 | D2        | DSS2.D2    | D2 Field Operation                              | 2.3, 5.1, 5.2           | 4D2_FieldOperation                                                              |
 | D3        | DSS2.D3    | D3 Variable Rate                                | 3.4, 5.1, 5.2           | 4D3_VariableRate                                                                |
+| D3        | DSS2.D3    | D3 Variable Rate Field Select                   | 3.4, 5.1, 5.2           | 4D3_VariableRateFields                                                          |
 | E1        | DSS1.E1    | E1 Pest Estimation with Sterile Fruit Flies     | 1.1, 1.2, 3.3, 5.1, 5.3 | 4E1_PestEstimation                                                              |
 | E2        | DSS1.E2    | E2 Estimate Temperature-Related Pest Events     | 3.1, 3.3                | 4E2_TempPestEvents                                                              |
 | F1        | DSS1.F1    | F1 Estimate Milk Production                     | 4.1, 4.2, 4.4, 5.4      | 4F1_EstimateMilkProduction                                                      |

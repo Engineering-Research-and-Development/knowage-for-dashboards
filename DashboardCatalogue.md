@@ -9,6 +9,7 @@
 This catalogue, contains some screenshots regarding the dashboards (released and under development) on Knowage.
 
 ## Table of contents
+* [**A.1: Training Plant Yield Estimation**](#a1-training-plant-yield-estimation)
 * [**A.1: Plant Yield Estimation**](#a1-plant-yield-estimation)
 * [**A.2: Plant Phenology Estimation**](#a2-plant-phenology-estimation)
 * [**A.3: Plant Stress Detection**](#a3-plant-stress-detection)
@@ -18,6 +19,7 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 * [**C.2: Nutrient and Sowing reccomendation**](#c2-nutrient-and-sowing-reccomendation)
 * [**D.1: Emission**](#d1-emission)
 * [**D.2: Field Operation**](#d2-field-operation)
+* [**D.3: Variable Rate Field Select**](#d3-variable-rate-field-select)
 * [**D.3: Variable Rate**](#d3-variable-rate)
 * [**E.1: Pest Estimation with Sterile Fruit Flies**](#e1-pest-estimation-with-sterile-fruit-flies)
 * [**E.2: Estimate temperature-related pest events**](#e2-estimate-temperature-related-pest-events)
@@ -31,6 +33,10 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 * [**I.2: Neighbour Benchmarking**](#i2-neighbour-benchmarking)
 * [**I.3: Technology Benchmarking**](#i3-technology-benchmarking)
  
+## A.1: Training Plant Yield Estimation
+
+![A1 Training Dashboard](/screenshots/a1trainingyieldprediction.png)
+
 ## A.1: Plant Yield Estimation
 
 ![A1 Dashboard](/screenshots/a1yieldprediction.png)
@@ -66,6 +72,10 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 ## D.2: Field Operation
 
 ![D2 Dashboard](/screenshots/d2fieldoperation.png)
+
+## D.3: Variable Rate Field Select
+
+![D3 Field select Dashboard](/screenshots/d3variableratefieldselect.png)
 
 ## D.3: Variable Rate
 

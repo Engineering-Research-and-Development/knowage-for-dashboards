@@ -33,6 +33,8 @@ import it.eng.demeter.i1.I1Dataset;
 import it.eng.demeter.c2.C2Dataset;
 import it.eng.demeter.d1.D1Dataset;
 import it.eng.demeter.d3.D3FieldData;
+import it.eng.demeter.a1.A1TrainingData;
+import it.eng.demeter.a1.A1Dataset;
 
 public class MainForTestDatasetOutput {
 
@@ -61,12 +63,15 @@ public class MainForTestDatasetOutput {
 		A5Dataset a5 = new A5Dataset();
 		A3Dataset a3 = new A3Dataset();
 		D3FieldData d3fd = new D3FieldData();
+		A1TrainingData a1td = new A1TrainingData();
+		A1Dataset a1 = new A1Dataset();
+		
 		try {
-			  String Url = "https://luidicorra.pythonanywhere.com/D3Fields";
+			  String Url = "http://luidicorra.pythonanywhere.com/A1New";
 		      FileWriter myWriter = new FileWriter("C:\\Users\\luidicorra\\Desktop\\Test\\filename.xml");
 		      // UNLOCK THIS LINE AND CHANGE THE DATASET CLASS TO TEST
 		      // REMEMBER TO COPY THE METHOD AT THE END OF THIS PAGE INSIDE BEING TESTED.
-		      //myWriter.write(d3fd.debugTest(getAim(Url,"POST")));
+		      //myWriter.write(a1.debugTest(getAim(Url,"POST")));
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
@@ -86,7 +91,7 @@ public class MainForTestDatasetOutput {
 				headerParameters.put("Content-Type", "application/json");
 				JSONObject jsonBody = new JSONObject();
 				//BODY FOR D3 FIELDS
-				jsonBody.put("user", "5752f9e3-8d88-4219-804d-73aad595b765");
+				jsonBody.put("users", "5752f9e3-8d88-4219-804d-73aad595b765");
 				HttpURLConnection con = (HttpURLConnection) url.openConnection();
 				con.setRequestMethod(methodHttp);
 				for (Object headerCurr : headerParameters.keySet()) {

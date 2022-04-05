@@ -38,7 +38,7 @@ public class B1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		
 		return ds;
 	}*/
-	
+
 	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
 		//public static String aimReaderForB1(String urlToRead) throws Exception, JSONException {
 		/*Requesting AIM*/
@@ -220,6 +220,7 @@ public class B1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		    				if (dateFound == false) {
 	    						B1DatasetRecord dsR = new B1DatasetRecord();
     							dsR.parcelID = parcelKey;
+    							dsR.plot = parcel.plot; //To enable plot name filtering, i need to have the plot name on all rows of the dataset
     							dsR.obsDate = obObj.date;
     							switch (obGObj.id.split("ObservationCollection.")[1]) {
     							case "1":
