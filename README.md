@@ -12,7 +12,7 @@ The new Knowage BD product satisfies the whole spectrum of analytical needs in a
 Knowage suite is realized by Engineering Group - the leading Italian software and services company, 
 with about 8,200 people and more than 40 offices in Italy, Belgium, Republic of Serbia, Norway, Brazil, Argentina, and United States.
 
-| :books: [Documentation](https://knowage-suite.readthedocs.io/en/7.2/) | :page_facing_up: [Site](https://www.knowage-suite.com/site/home/) | :whale: [Docker Hub](https://hub.docker.com/r/demeterengteam/knowagedb-7.2.0) | :dart: [Roadmap](https://github.com/Engineering-Research-and-Development/knowage-for-dashboards/blob/main/ROADMAP.md) |
+| :books: [Documentation](https://knowage-suite.readthedocs.io/en/7.2/) | :page_facing_up: [Site](https://www.knowage-suite.com/site/home/) | :whale: [Docker Hub](https://hub.docker.com/r/demeterengteam/knowage-7.2.0) | :dart: [Roadmap](https://github.com/Engineering-Research-and-Development/knowage-for-dashboards/blob/main/ROADMAP.md) |
 | --- | --- | --- | --- |
 
 ## Contents
@@ -28,7 +28,6 @@ with about 8,200 people and more than 40 offices in Italy, Belgium, Republic of 
 * [**Setup local instance**](#setup-local-instance)
 * [**How to use**](#how-to-use)
 * [**Workaround**](#workaround)
-* [**Pilot Open Issue**](#pilot-open-issue)
 * [**Support team**](#support-team)
 * [**Release**](#release)
 * [**License**](#license)
@@ -49,29 +48,29 @@ The dashboard catalogue will list all the dashboards currently released on Knowa
 
 ## Dashboard Status Development
 
-| Area | Components   | Component Leader                            | Development |
-| :--- | :----------: | :------------------------------------------ | :---------: |
-| A    | A1           | Bart Beusen (VITO)                          | 100%        |
-| A    | A2           | Izar Azpiroz (VICOM)                        | 100%        |
-| A    | A3           | Mihai Angheloiu (SIVECO)                    | 100%        |
-| A    | A5           | Ross Campbell (ICE)                         | 100%        |
-| B    | B1, B3, B4   | Manuel Mora (UMU)                           | 100%        |
-| C    | C1           | Mihai Angheloiu (SIVECO)                    | 100%        |
-| C    | C2           | Stefan Louriero (Ubiwhere)                  | 100%        |
-| D    | D1           | Andreas Schröder (John Deere)               | 100%        |
-| D    | D2           | Nenad Gligoric (DNET)                       | 100%        |
-| D    | D3           | Isabelle Piccard (VITO)                     | 100%        |
-| E    | E1           | Ross Campbell (ICE), Sergio Salmeron (ATOS) | 100%        |
-| E    | E2           | Diego Guidotti (AGRICOLUS)                  | 100%        |
-| F    | F1           | Harald Volden (MIMIRO)                      | 100%        |
-| F    | F2           | Nenad Gligoric (DNET)                       | 100%        |
-| G    | G1.D1, G1.D2 | Antonio Caruso (ENG)                        | 100%        |
-| G    | G2           | Nenad Gligoric (DNET)                       | 100%        |
-| H    | H1.D1, H1.D2 | Antonio Caruso (ENG)                        | 100%        |
-| H    | H2           | Nenad Gligoric (DNET)                       | 100%        |
-| I    | I1           | Diego Guidotti (AGRICOLUS)                  | 100%        |
-| I    | I2           | Diego Guidotti (AGRICOLUS)                  | 100%        |
-| I    | I3           | Diego Guidotti (AGRICOLUS)                  | 100%        |
+| Area | Components   | Component Leader                                    | Development |
+| :--- | :----------: | :-------------------------------------------------- | :---------: |
+| A    | A1           | Bart Beusen (VITO)                                  | 100%        |
+| A    | A2           | Izar Azpiroz (VICOM)                                | 100%        |
+| A    | A3           | Mihai Angheloiu (SIVECO) <br> Florin Lungu (SIVECO) | 100%        |
+| A    | A5           | Ross Campbell (ICE)                                 | 100%        |
+| B    | B1, B3, B4   | Manuel Mora (UMU)                                   | 100%        |
+| C    | C1           | Mihai Angheloiu (SIVECO) <br> Florin Lungu (SIVECO) | 100%        |
+| C    | C2           | Stefan Louriero (Ubiwhere)                          | 100%        |
+| D    | D1           | Andreas Schröder (John Deere)                       | 100%        |
+| D    | D2           | Senka Gajinov (DNET)                                | 100%        |
+| D    | D3           | Isabelle Piccard (VITO)                             | 100%        |
+| E    | E1           | Ross Campbell (ICE), Sergio Salmeron (ATOS)         | 100%        |
+| E    | E2           | Diego Guidotti (AGRICOLUS)                          | 100%        |
+| F    | F1           | Harald Volden (MIMIRO)                              | 100%        |
+| F    | F2           | Senka Gajinov (DNET)                                | 100%        |
+| G    | G1.D1, G1.D2 | Antonio Caruso (ENG)                                | 100%        |
+| G    | G2           | Senka Gajinov (DNET)                                | 100%        |
+| H    | H1.D1, H1.D2 | Antonio Caruso (ENG)                                | 100%        |
+| H    | H2           | Senka Gajinov (DNET)                                | 100%        |
+| I    | I1           | Diego Guidotti (AGRICOLUS)                          | 100%        |
+| I    | I2           | Diego Guidotti (AGRICOLUS)                          | 100%        |
+| I    | I3           | Diego Guidotti (AGRICOLUS)                          | 100%        |
 
 ## Technologies
 
@@ -96,8 +95,8 @@ The dashboard catalogue will list all the dashboards currently released on Knowa
 
 ## Features
 
-|                                                                                                                    | Name                   | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+|                                                                                                                       | Name                   | Description                                                                                                              |
+| --------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | <img src="https://www.knowage-suite.com/site/wp-content/uploads/2021/03/BD_txt-180x180-1.jpg" alt="BD" width="50px"/> | Big Data               | To analyse data stored on big data clusters or NoSQL databases                                                           |
 | <img src="https://www.knowage-suite.com/site/wp-content/uploads/2021/03/SI_txt-180x180-1.jpg" alt="SI" width="50px"/> | Smart Intelligence     | The usual business intelligence on structured data, but more oriented to self-service capabilities and agile prototyping |
 | <img src="https://www.knowage-suite.com/site/wp-content/uploads/2021/03/ER_txt-180x180-1.jpg" alt="ER" width="50px"/> | Enterprise Reporting   | To produce and distribute static reports                                                                                 |
@@ -134,7 +133,7 @@ Refer to the following sections for installation and usage:
 
 It's possible to run the application using `docker-compose`.
 
-#### Docker-compose
+*docker-compose.yml content:*
 
 ```
 version: "3"
@@ -219,26 +218,7 @@ Please check the **[User Manual](https://github.com/Engineering-Research-and-Dev
  
 	* **Use Knowage Analytical Driver**
 
-* Profile attribute extension.
-			
-## Pilot Open Issue
-
-### AIM/Mockup to review
-
-* **Area A:**
-	* Component A.3 – **AIM missing value**
-
-* **Area C:**
-	* Component C.1 – **AIM missing value**
-
-* **Area D:**
-	* Component D.1 – **Missing AIM:**
-		* Waiting for AIM output data.
-
-* **Area E:**
-	* Component E.1 – **AIM to verify:**
-		* AIM format not correct (some input missing and some input wrong).
-		
+* Profile attribute extension.	
 		
 ## Support team
 
@@ -251,7 +231,7 @@ Please check the **[User Manual](https://github.com/Engineering-Research-and-Dev
 **[Antonio Caruso](mailto:Antonio.Caruso@eng.it)** _(Integration)_
 
 ## Release
-![Version badge](https://img.shields.io/badge/Candidate-0.8-green)
+![Version badge](https://img.shields.io/badge/Release-2.5-green)
 
 ## License
 
