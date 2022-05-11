@@ -54,9 +54,8 @@ public class E1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 
 		String rows = "";
 		rows = "<ROWS>";
-		Map<String, String> smartMeters = new HashMap<String, String>();
-		Map<String, E1ObservationData> observations = new HashMap<String, E1ObservationData>();
-		Map<String, E1QuantityValue> quantityValues = new HashMap<String, E1QuantityValue>();
+		Map<String, E1ObservationData> sfObs = new HashMap<String, E1ObservationData>();
+		Map<String, E1ObservationData> nsfObs = new HashMap<String, E1ObservationData>();
 
 		try {
 
@@ -68,38 +67,25 @@ public class E1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 			for (int l=0; l<jsonArray.length(); l++){
 				String elemento = jsonArray.getJSONObject(l).get("@type").toString();
 				switch (elemento) {
-				case "SmartMeter":
-					String smartMeterId = jsonArray.getJSONObject(l).get("@id").toString();
-					String smartMeterType = jsonArray.getJSONObject(l).getJSONObject("meterType").get("value").toString();
-					smartMeters.put(smartMeterId,smartMeterType);
-					break;
 				case "Observation":
 					E1ObservationData ob = new E1ObservationData();
-					ob.id = jsonArray.getJSONObject(l).get("@id").toString() +Integer.toString(l);
-					ob.smartMeterId = jsonArray.getJSONObject(l).getJSONObject("hasFeatureOfInterest").get("@id").toString();
+					String typeOfFly = "";
+					String elementID = "";
+					ob.setTrapId(jsonArray.getJSONObject(l).getJSONObject("hasFeatureOfInterest").get("identifier").toString());
+					ob.setDate(jsonArray.getJSONObject(l).get("resultTime").toString().split("T")[0]);
+					ob.setType(jsonArray.getJSONObject(l).get("observationType").toString());
+					elementID = ob.getDate()+"_"+ob.getTrapId()+"_"+ob.getType();
 					JSONArray results = new JSONArray(jsonArray.getJSONObject(l).get("hasResult").toString());
 					for (int j=0; j<results.length(); j++) {
-						ob.quantityValueId = results.getJSONObject(j).get("@id").toString();
+						ob.setValue(results.getJSONObject(j).get("numericValue").toString());
+						typeOfFly = results.getJSONObject(j).get("description").toString();
 					}
-					observations.put(ob.id, ob);
+					if (typeOfFly.equals("esteril")) {
+						sfObs.put(elementID, ob);
+					} else {
+						nsfObs.put(elementID, ob);
+					}
 					break;
-				case "QuantityValue":
-					E1QuantityValue qv = new E1QuantityValue();
-					qv.id = jsonArray.getJSONObject(l).get("@id").toString();
-					qv.trapId = jsonArray.getJSONObject(l).get("identifier").toString();
-					qv.value = jsonArray.getJSONObject(l).get("numericValue").toString();
-
-					final String OLD_FORMAT = "yyyyMMdd";
-					final String NEW_FORMAT = "yyyy-MM-dd";
-
-					String oldDateString = qv.id.split("/")[1];
-					//String newDateString;
-
-					SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
-					Date d = sdf.parse(oldDateString);
-					sdf.applyPattern(NEW_FORMAT);
-					qv.date = sdf.format(d);
-					quantityValues.put(qv.id,qv);
 				}
 			}
 		} catch (JSONException e) {
@@ -109,66 +95,34 @@ public class E1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 
 		/*Creating records for dataset*/
 		List<E1DatasetRecord> dsRList=new ArrayList<E1DatasetRecord>();
-		List<E1DatasetRecord> dsRListTemp=new ArrayList<E1DatasetRecord>();
-		smartMeters.forEach((smId, smType) -> {
-			observations.forEach((obId, obObj) -> {
-				if(obObj.smartMeterId.equals(smId)) {
-					E1DatasetRecord dsR = new E1DatasetRecord();
-					quantityValues.forEach((qvId, qvObj) -> {
-						if(qvObj.id.equals(obObj.quantityValueId)) {
-							boolean recordFound = false;
-							String measureName = smType;
-							for(E1DatasetRecord dsRec:dsRListTemp) {
-								if(qvObj.trapId.equals(dsRec.trapId) && qvObj.date.equals(dsRec.date)) {
-									recordFound = true;
-									switch (measureName) {
-									case "Sterile flies":
-										dsRec.sterileFlies = qvObj.value;
-										break;
-									case "Non-sterile flies":
-										dsRec.nonSterileFlies = qvObj.value;
-										break;
-									}
-								}
-							}
-							if (recordFound == false) {
-								dsR.trapId = qvObj.trapId;
-								dsR.date = qvObj.date;
-								switch (measureName) {
-								case "Sterile flies":
-									dsR.sterileFlies = qvObj.value;
-									break;
-								case "Non-sterile flies":
-									dsR.nonSterileFlies = qvObj.value;
-									break;
-								}
-								dsRListTemp.add(dsR);
-							}
-						}
-					});
-
-				}
-
-			});
+		sfObs.forEach((id, item) -> {
+			E1DatasetRecord dsR = new E1DatasetRecord();
+			dsR.setDate(item.getDate());
+			dsR.setTrapId(item.getTrapId());
+			dsR.setType(item.getType());
+			dsR.setSterileFlies(item.getValue());
+			// check for non sterile flies value
+			if (nsfObs.containsKey(id)) {
+				dsR.setNonSterileFlies(nsfObs.get(id).getValue());
+			}
+			dsRList.add(dsR);
 		});
-		dsRList.addAll(dsRListTemp);
-		dsRListTemp.clear();
 
 		/*Exporting Records to XML KA format*/
 		for(E1DatasetRecord dsR:dsRList) {
-			int s = (int) Double.parseDouble(dsR.sterileFlies); 
-			int ns = (int) Double.parseDouble(dsR.nonSterileFlies); 
+			int s = (int) Double.parseDouble(dsR.getSterileFlies()); 
+			int ns = (int) Double.parseDouble(dsR.getNonSterileFlies()); 
 			String total = Integer.toString(s+ns);
 
-			rows += "<ROW Date=\"" + dsR.date
-					+ "\" TrapID=\"" + dsR.trapId
+			rows += "<ROW Date=\"" + dsR.getDate()
+					+ "\" TrapID=\"" + dsR.getTrapId()
 					+ "\" SterileFlies=\"" + Integer.toString(s)
 					+ "\" NonSterileFlies=\"" + Integer.toString(ns)
 					+ "\" Total=\"" + total
+					+ "\" Type=\"" + dsR.getType()
 					+ "\"/>";
 		}
 		rows += "</ROWS>";
 		return rows;
 	}
-
 }

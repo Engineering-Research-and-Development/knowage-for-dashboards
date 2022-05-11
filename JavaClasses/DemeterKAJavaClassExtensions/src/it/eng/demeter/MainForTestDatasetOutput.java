@@ -67,11 +67,11 @@ public class MainForTestDatasetOutput {
 		A1Dataset a1 = new A1Dataset();
 		
 		try {
-			  String Url = "http://luidicorra.pythonanywhere.com/A1New";
+			  String Url = "https://luidicorra.pythonanywhere.com/E1New";
 		      FileWriter myWriter = new FileWriter("C:\\Users\\luidicorra\\Desktop\\Test\\filename.xml");
 		      // UNLOCK THIS LINE AND CHANGE THE DATASET CLASS TO TEST
 		      // REMEMBER TO COPY THE METHOD AT THE END OF THIS PAGE INSIDE BEING TESTED.
-		      //myWriter.write(a1.debugTest(getAim(Url,"POST")));
+		      //myWriter.write(e1.debugTest(getAim(Url,"GET")));
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
