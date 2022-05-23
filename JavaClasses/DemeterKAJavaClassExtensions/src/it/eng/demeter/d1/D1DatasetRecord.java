@@ -3,12 +3,6 @@ package it.eng.demeter.d1;
 public class D1DatasetRecord {
 	
 	private String machineId = "";
-	public String getMachineId() {
-		return machineId;
-	}
-	public void setMachineId(String machineId) {
-		this.machineId = machineId;
-	}
 	private String dateEvaluation = "";
 	private String dateStart = "";
 	private String dateEnd = "";
@@ -20,8 +14,14 @@ public class D1DatasetRecord {
 	private String errorDetail = "-";
 	private String note = "-";
 	private String uniqueId = "";
-	private String filterForDateTable = ""; //true of false
+	private String filterForDateTable = ""; //true or false
 	
+	public String getMachineId() {
+		return machineId;
+	}
+	public void setMachineId(String machineId) {
+		this.machineId = machineId;
+	}
 	public String getUniqueId() {
 		return uniqueId;
 	}
