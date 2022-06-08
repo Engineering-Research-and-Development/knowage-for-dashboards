@@ -1,0 +1,14 @@
+mapWidgetEditPropertyTemplate.html 
+TOMCAT_ROOT/webapps/knowagecockpitengine/js/src-7.2.0/angular_1.4/cockpit/directives/cockpit-widget/widget/mapWidget/templates
+
+cockpitModule_mapServices.js 
+TOMCAT_ROOT/webapps/knowagecockpitengine/js/src-7.2.0/angular_1.4/cockpit/services
+
+messages.properties 
+TOMCAT_ROOT/webapps/knowagecockpitengine/js/src-7.2.0/messages
+
+messages_it_IT.properties 
+TOMCAT_ROOT/webapps/knowagecockpitengine/js/src-7.2.0/messages
+
+messages_es_ES.properties 
+TOMCAT_ROOT/webapps/knowagecockpitengine/js/src-7.2.0/messages

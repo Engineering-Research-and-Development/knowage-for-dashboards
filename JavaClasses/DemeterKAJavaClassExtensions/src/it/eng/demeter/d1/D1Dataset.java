@@ -118,7 +118,6 @@ public class D1Dataset extends DemeterAbstractJavaClassDataSet {
 			}
 			rows += "</ROWS>";
 
-			/*Reading elements*/
 		} catch (JSONException e) {
 			logger.error(e.getMessage(), e.getCause());
 			e.printStackTrace();

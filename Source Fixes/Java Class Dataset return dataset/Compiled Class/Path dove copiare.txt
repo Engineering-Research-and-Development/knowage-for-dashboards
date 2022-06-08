@@ -1,0 +1,2 @@
+la class va inserita in questo path: TOMCAT_ROOT\webapps\knowage\WEB-INF\classes\it\eng\spagobi\tools\dataset\bo
+bisogna creare le cartelle necessarie se mancanti

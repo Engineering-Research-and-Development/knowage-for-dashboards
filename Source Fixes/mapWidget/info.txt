@@ -1,0 +1,83 @@
+FIX #001:
+Map widget does not render WKT POINT features, so we decide to use the STRING format to render a point into the map
+keeping the same syntax "POINT (coord1 coord2)"
+
+if (config.properties.coordType.toUpperCase() == "STRING") {
+	// Project Demeter: Fix #001 
+	// Temporary fix for read WKT POINTS on map widget using STRING FORMAT
+	// We expect to receive POINT with the WKT syntax "POINT (coord1 coord2)"
+	var tmpType = value.substring(0,5);
+	if (tmpType == "POINT") {
+		value = value.substring(6,value.length-1);
+	}
+	// ==========================================================================
+	coordinates =  transform(ms.getSimpleCoordinates(geocol, config, value));
+}
+
+FIX #002:
+Allow the map widget to auto center at feature position
+
+// Project Demeter: Fix #002
+// Source code from Knowage 8.0
+// Added auto center function
+		
+ms.updateCoordinatesAndZoom = function(model, map, l, setValues){
+	var coord;
+	var zoom;
+	var source;
+
+	/*
+	 * WORKAROUND : Fix center point for widgets with WKT layer saved
+	 * before the commit 44eff10
+	 */
+	if (!(model.content.currentView.center instanceof Array)
+			|| (model.content.currentView.center instanceof Array
+					&& isNaN(model.content.currentView.center[0]))) {
+		model.content.currentView.center = [0,0];
+	}
+
+	var currView = map.getView();
+	if (model.content.autoCentering) {
+		source = l.getSource();
+
+		if (setValues) {
+			currView.fit(source.getExtent());
+		}
+	} else if (model.content.currentView.center[0] == 0 && model.content.currentView.center[1] == 0) {
+		source = l.getSource();
+
+		if (setValues) {
+			currView.fit(source.getExtent());
+		}
+
+		//update coordinates and zoom within the template
+		model.content.currentView.center = currView.getCenter();
+		model.content.currentView.zoom = currView.getZoom();
+
+	}
+}
+
+FIX #003:
+Enable the swap setting of Lon Lat /Lat lon on WKT format
+
+} else if (geoFieldConfig.properties.coordType == 'wkt') {
+	/* Project Demeter: Fix #003
+		Enable LAT LON, LON LAT Option for WKT FORMAT */
+	if (geoFieldConfig.properties.coordFormat==="lat lon") {
+		var tmpValue = geoFieldValue.replace(/.*\(\((.*?)\)\)/g,'$1');
+		var typeOfFeature = geoFieldValue.split(" ")[0];
+		const regex = /([^,]+[^,]) ([^,]+[^,])/g;
+		tmpValue = tmpValue.replace(regex, '$2 $1');
+		geoFieldValue = typeOfFeature+" (("+tmpValue+"))";
+	}
+	//==============================================================
+	feature = new ol.format.WKT().readFeature(geoFieldValue, {
+		dataProjection: 'EPSG:4326',
+		featureProjection: 'EPSG:3857'
+	});
+
+	ms.setUpWKTFeature(feature, config, row, configColumns, values);
+	ms.setUpSelectedMeasure(selectedMeasure, config, values);
+
+	featuresSource.addFeature(feature);
+}

@@ -1,0 +1,7 @@
+Missing method to allow the use of JavaClass datasets
+
+// Demeter Project Fix#001
+	@Override
+	public IDataSource getDataSource() {
+		return null;
+	}

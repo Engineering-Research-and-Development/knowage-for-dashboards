@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
+
 public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.eng.spagobi.tools.dataset.bo.IJavaClassDataSet*/ {
 
 	private String url = null;
@@ -155,7 +156,9 @@ public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		    		  for (int x=0; x<arrayResults.length(); x++) {
 		    			  A3Result result = new A3Result();
 	    				  result.setValue(arrayResults.get(x).toString());
-	    				  result.setValue(result.getValue().replaceAll("°", "&#176;"));
+	    				  result.setValue(result.getValue()
+	    						  .replaceAll("°", "&#176;")
+	    						  .replaceAll("Â", ""));
 	    				  result.setParcelRecordId(jsonArray.getJSONObject(l).get("@id").toString() + "." + x);
 	    				  results.put(result.getParcelRecordId(), result); 
 		    		  }

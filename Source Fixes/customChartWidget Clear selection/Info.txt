@@ -1,0 +1,7 @@
+Add a function to clear cockpit selection active filters "datastore.clearSelection()" from custom chart widget
+
+// Luigi di Corrado for DEMETER T4.3 Knowage for Dashboard project
+// Clear selection function for custom chart widget
+	datastore.clearSelection = function() {
+		$scope.clearAllSelectionsAndRefresh();
+	}

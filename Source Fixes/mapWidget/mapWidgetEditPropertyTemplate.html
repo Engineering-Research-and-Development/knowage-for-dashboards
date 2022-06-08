@@ -1,0 +1,87 @@
+<md-card   class="flexCard customTableWidgetConfiguration mapWidget" >
+	<md-card-content flex layout="column" class="noPadding">
+	    <md-toolbar> 
+	      <div class="md-toolbar-tools">
+	        <h2>Map widget configuration</h2>
+	        <span flex></span>
+	      </div>
+	    </md-toolbar>
+	    <md-content flex layout="column">
+			<md-tabs flex md-border-bottom>
+
+				<md-tab label="Layers">
+					<md-content class="noPadding" layout="column">
+						
+						<ng-include src="getTemplateUrl('mapWidgetLayers')" flex></ng-include>
+						
+						<md-card class="cockpit-map-widget-edit">
+							<md-toolbar class="secondaryToolbar"> 
+								<div class="md-toolbar-tools">
+									<h2>{{translate.load('sbi.cockpit.map.genericConfiguration')}}</h2>
+									<span flex></span>
+								</div>
+							</md-toolbar>
+							<md-card-content>
+								<md-switch ng-model="newModel.content.enableBaseLayer" aria-label="{{translate.load('sbi.cockpit.map.enableBaseLayer')}}">{{translate.load('sbi.cockpit.map.enableBaseLayer')}}</md-switch>
+								<md-input-container style="width: 33%;">
+									<label>{{translate.load('sbi.cockpit.map.selectBackgroundLayer')}}</label>
+									<md-select ng-model="newModel.content.backgroundLayerId">
+										<md-option value=""></md-option>
+										<md-option ng-repeat="layer in availableBackgroundLayers  | orderBy:'value' " ng-value="layer.key">{{ layer.value }}</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container style="width: 33%;">
+									<label>{{translate.load('sbi.cockpit.map.zoomFactor')}}</label>
+									<md-select ng-model="newModel.content.zoomFactor">
+										<md-option ng-value="0.1">10%</md-option>
+										<md-option ng-value="0.2">20%</md-option>
+										<md-option ng-value="0.3">30%</md-option>
+										<md-option ng-value="0.4">40%</md-option>
+										<md-option ng-value="0.5">50%</md-option>
+										<md-option ng-value="0.6">60%</md-option>
+										<md-option ng-value="0.7">70%</md-option>
+										<md-option ng-value="0.8">80%</md-option>
+										<md-option ng-value="0.9">90%</md-option>
+										<md-option ng-value="1.0">100%</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container layout="row">
+									<md-switch ng-model="newModel.content.showScale" aria-label="{{translate.load('sbi.cockpit.map.showScale')}}">{{translate.load('sbi.cockpit.map.showScale')}}</md-switch>
+									<md-switch ng-model="newModel.content.autoCentering" aria-label="{{translate.load('sbi.cockpit.map.autoCentering')}}">{{translate.load('sbi.cockpit.map.autoCentering')}}</md-switch>
+								</md-input-container>
+							</md-card-content>
+						</md-card>
+					</md-content>
+				</md-tab>
+
+		        <md-tab label="{{translate.load('sbi.cockpit.style')}}">
+		        	<cockpit-style-configurator widget ng-model="newModel.style">
+		        		<cockpit-style-custom-widget-configurator label="'Padding'">
+				           <div layout="row" flex ng-cloak layout-wrap>
+	
+				          
+				           </div>
+				        </cockpit-style-custom-widget-configurator>
+		        	</cockpit-style-configurator>
+		        </md-tab>
+		        
+		        <md-tab label="{{::translate.load('sbi.cockpit.widget.table.cross')}}">
+					<cockpit-cross-configurator widget ng-cloak ng-model="newModel.cross"></cockpit-cross-configurator>
+				</md-tab>
+				
+				<md-tab label="{{::translate.load('sbi.cockpit.widget.table.filters')}}">
+					<cockpit-filters-configuration ng-model-shared="newModel" ></cockpit-filters-configuration>
+				</md-tab>
+		        
+	      	</md-tabs>
+	    </md-content>
+    </md-card-content>
+    <md-card-actions layout="row"  layout-align="end center">
+	    <md-button class="md-raised" ng-click="cancelConfiguration()" >
+	     {{translate.load('sbi.generic.cancel')}}
+	    </md-button>
+	    <md-button class="md-raised md-primary" ng-click="saveConfiguration()"  >
+	     {{translate.load('sbi.generic.save')}}
+	    </md-button>
+    </md-card-actions>
+</md-card>
