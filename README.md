@@ -141,7 +141,7 @@ services:
 
    knowagedb:
       hostname: knowagedb
-      image: demeterengteam/knowagedb-7.2.0:v2.5
+      image: demeterengteam/knowagedb-7.2.0:v2.7
       networks:
          - hostnet
       ports:
@@ -154,7 +154,7 @@ services:
 
    knowage:
       hostname: knowage
-      image: demeterengteam/knowage-7.2.0:idm-v2.5
+      image: demeterengteam/knowage-7.2.0:v2.7
       networks:
          - hostnet
       ports:
@@ -231,7 +231,7 @@ Please check the **[User Manual](https://github.com/Engineering-Research-and-Dev
 **[Antonio Caruso](mailto:Antonio.Caruso@eng.it)** _(Integration)_
 
 ## Release
-![Version badge](https://img.shields.io/badge/Release-2.5-green)
+![Version badge](https://img.shields.io/badge/Release-2.7-green)
 
 ## License
 

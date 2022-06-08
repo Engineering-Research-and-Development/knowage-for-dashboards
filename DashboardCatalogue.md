@@ -18,6 +18,7 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 * [**C.1: Nitrogen Balance Model**](#c1-nitrogen-balance-model)
 * [**C.2: Nutrient and Sowing reccomendation**](#c2-nutrient-and-sowing-reccomendation)
 * [**D.1: Emission**](#d1-emission)
+* [**D.1: Emission DSS 2**](#d1-emission-dss-2)
 * [**D.2: Field Operation**](#d2-field-operation)
 * [**D.3: Variable Rate Field Select**](#d3-variable-rate-field-select)
 * [**D.3: Variable Rate**](#d3-variable-rate)
@@ -68,6 +69,10 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 ## D.1: Emission
 
 ![D1 Dashboard](/screenshots/d1emission.png)
+
+## D.1: Emission DSS 2
+
+![D1 Dashboard 2](/screenshots/d1emissiondss2.jpg)
 
 ## D.2: Field Operation
 
