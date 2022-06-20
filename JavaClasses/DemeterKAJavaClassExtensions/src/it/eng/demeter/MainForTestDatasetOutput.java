@@ -36,6 +36,7 @@ import it.eng.demeter.d3.D3FieldData;
 import it.eng.demeter.a1.A1TrainingData;
 import it.eng.demeter.a1.A1Dataset;
 import it.eng.demeter.d1.D1DSS2Dataset;
+import it.eng.demeter.pilot5_2UC2.UC2Dataset;
 
 public class MainForTestDatasetOutput {
 
@@ -67,13 +68,14 @@ public class MainForTestDatasetOutput {
 		A1TrainingData a1td = new A1TrainingData();
 		A1Dataset a1 = new A1Dataset();
 		D1DSS2Dataset d1dss2 = new D1DSS2Dataset();
+		UC2Dataset uc2ds = new UC2Dataset();
 		
 		try {
-			  String Url = "https://luidicorra.pythonanywhere.com/A3New";
+			  String Url = "https://luidicorra.pythonanywhere.com/P52uc2";
 		      FileWriter myWriter = new FileWriter("C:\\Users\\luidicorra\\Desktop\\Test\\filename.xml");
 		      // UNLOCK THIS LINE AND CHANGE THE DATASET CLASS TO TEST
 		      // REMEMBER TO COPY THE METHOD AT THE END OF THIS PAGE INSIDE BEING TESTED.
-		      //myWriter.write(a3.debugTest(getAim(Url,"GET")));
+		      //myWriter.write(uc2ds.debugTest(getAim(Url,"GET")));
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
