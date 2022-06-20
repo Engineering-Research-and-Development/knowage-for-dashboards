@@ -213,9 +213,9 @@
 				// Project Demeter: Fix #001 
 				// Temporary fix for read WKT POINTS on map widget using STRING FORMAT
 				// We expect to receive POINT with the WKT syntax "POINT (coord1 coord2)"
-				var tmpType = value.substring(0,5);
-				if (tmpType == "POINT") {
-					value = value.substring(6,value.length-1);
+				var typeOfFeature = value.split(" ")[0];
+				if (typeOfFeature === "POINT") {
+					value = value.replace(/.*\((.*?)\)/g,'$1');
 				}
 				// ==========================================================================
 				coordinates =  transform(ms.getSimpleCoordinates(geocol, config, value));
@@ -335,19 +335,18 @@
 							&& isNaN(model.content.currentView.center[0]))) {
 				model.content.currentView.center = [0,0];
 			}
-
 			var currView = map.getView();
 			if (model.content.autoCentering) {
 				source = l.getSource();
 
 				if (setValues) {
-					currView.fit(source.getExtent());
+					currView.fit(source.getExtent(),{padding: [10,10,10,10],duration: 1000});
 				}
 			} else if (model.content.currentView.center[0] == 0 && model.content.currentView.center[1] == 0) {
 				source = l.getSource();
-
+				
 				if (setValues) {
-					currView.fit(source.getExtent());
+					currView.fit(source.getExtent(),{padding: [10,10,10,10],duration: 1000});
 				}
 
 				//update coordinates and zoom within the template

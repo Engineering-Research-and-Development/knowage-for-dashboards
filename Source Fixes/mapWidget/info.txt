@@ -18,44 +18,43 @@ FIX #002:
 Allow the map widget to auto center at feature position
 
 // Project Demeter: Fix #002
-// Source code from Knowage 8.0
-// Added auto center function
+		// Source code from Knowage 8.0
+		// Added auto center function
 		
-ms.updateCoordinatesAndZoom = function(model, map, l, setValues){
-	var coord;
-	var zoom;
-	var source;
+		ms.updateCoordinatesAndZoom = function(model, map, l, setValues){
+			var coord;
+			var zoom;
+			var source;
 
-	/*
-	 * WORKAROUND : Fix center point for widgets with WKT layer saved
-	 * before the commit 44eff10
-	 */
-	if (!(model.content.currentView.center instanceof Array)
-			|| (model.content.currentView.center instanceof Array
-					&& isNaN(model.content.currentView.center[0]))) {
-		model.content.currentView.center = [0,0];
-	}
+			/*
+			 * WORKAROUND : Fix center point for widgets with WKT layer saved
+			 * before the commit 44eff10
+			 */
+			if (!(model.content.currentView.center instanceof Array)
+					|| (model.content.currentView.center instanceof Array
+							&& isNaN(model.content.currentView.center[0]))) {
+				model.content.currentView.center = [0,0];
+			}
+			var currView = map.getView();
+			if (model.content.autoCentering) {
+				source = l.getSource();
 
-	var currView = map.getView();
-	if (model.content.autoCentering) {
-		source = l.getSource();
+				if (setValues) {
+					currView.fit(source.getExtent(),{padding: [10,10,10,10],duration: 1000});
+				}
+			} else if (model.content.currentView.center[0] == 0 && model.content.currentView.center[1] == 0) {
+				source = l.getSource();
+				
+				if (setValues) {
+					currView.fit(source.getExtent(),{padding: [10,10,10,10],duration: 1000});
+				}
 
-		if (setValues) {
-			currView.fit(source.getExtent());
+				//update coordinates and zoom within the template
+				model.content.currentView.center = currView.getCenter();
+				model.content.currentView.zoom = currView.getZoom();
+
+			}
 		}
-	} else if (model.content.currentView.center[0] == 0 && model.content.currentView.center[1] == 0) {
-		source = l.getSource();
-
-		if (setValues) {
-			currView.fit(source.getExtent());
-		}
-
-		//update coordinates and zoom within the template
-		model.content.currentView.center = currView.getCenter();
-		model.content.currentView.zoom = currView.getZoom();
-
-	}
-}
 
 FIX #003:
 Enable the swap setting of Lon Lat /Lat lon on WKT format
