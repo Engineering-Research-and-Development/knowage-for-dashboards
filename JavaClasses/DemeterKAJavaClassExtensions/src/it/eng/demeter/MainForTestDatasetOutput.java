@@ -9,34 +9,37 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import it.eng.demeter.a1.A1Dataset;
+import it.eng.demeter.a1.A1TrainingData;
+import it.eng.demeter.a2.A2Dataset;
 import it.eng.demeter.a3.A3Dataset;
 import it.eng.demeter.a5.A5Dataset;
-import it.eng.demeter.d3.D3Dataset;
 import it.eng.demeter.b1.B1Dataset;
-import it.eng.demeter.d2.D2Dataset;
 import it.eng.demeter.c1.C1Dataset;
-import it.eng.demeter.e2.E2Dataset;
-import it.eng.demeter.i2.I2Dataset;
-import it.eng.demeter.i3.I3Dataset;
-import it.eng.demeter.f1.F1Dataset;
-import it.eng.demeter.g1.G1Dataset;
-import it.eng.demeter.a2.A2Dataset;
+import it.eng.demeter.c2.C2Dataset;
+import it.eng.demeter.d1.D1DSS2Dataset;
+import it.eng.demeter.d1.D1Dataset;
+import it.eng.demeter.d2.D2Dataset;
+import it.eng.demeter.d3.D3Dataset;
+import it.eng.demeter.d3.D3FieldData;
 import it.eng.demeter.e1.E1Dataset;
+import it.eng.demeter.e2.E2Dataset;
+import it.eng.demeter.f1.F1Dataset;
+import it.eng.demeter.f2.F2Dataset;
+import it.eng.demeter.g1.G1Dataset;
 import it.eng.demeter.g2.G2Dataset;
 import it.eng.demeter.h2.H2Dataset;
-import it.eng.demeter.f2.F2Dataset;
 import it.eng.demeter.i1.I1Dataset;
-import it.eng.demeter.c2.C2Dataset;
-import it.eng.demeter.d1.D1Dataset;
-import it.eng.demeter.d3.D3FieldData;
-import it.eng.demeter.a1.A1TrainingData;
-import it.eng.demeter.a1.A1Dataset;
-import it.eng.demeter.d1.D1DSS2Dataset;
+import it.eng.demeter.i2.I2Dataset;
+import it.eng.demeter.i3.I3Dataset;
+import it.eng.demeter.pilot5_2UC1.UC1Dataset;
 import it.eng.demeter.pilot5_2UC2.UC2Dataset;
+import it.eng.demeter.test.TestG1Metrics;
 
 public class MainForTestDatasetOutput {
 
@@ -69,13 +72,15 @@ public class MainForTestDatasetOutput {
 		A1Dataset a1 = new A1Dataset();
 		D1DSS2Dataset d1dss2 = new D1DSS2Dataset();
 		UC2Dataset uc2ds = new UC2Dataset();
+		UC1Dataset uc1ds = new UC1Dataset();
+		TestG1Metrics g1test = new TestG1Metrics();
 		
 		try {
-			  String Url = "https://luidicorra.pythonanywhere.com/P52uc2";
+			  String Url = "https://luidicorra.pythonanywhere.com/G1Test";
 		      FileWriter myWriter = new FileWriter("C:\\Users\\luidicorra\\Desktop\\Test\\filename.xml");
 		      // UNLOCK THIS LINE AND CHANGE THE DATASET CLASS TO TEST
 		      // REMEMBER TO COPY THE METHOD AT THE END OF THIS PAGE INSIDE BEING TESTED.
-		      //myWriter.write(uc2ds.debugTest(getAim(Url,"GET")));
+		      myWriter.write(g1test.debugTest(getAim(Url,"GET")));
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {

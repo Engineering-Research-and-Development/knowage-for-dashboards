@@ -13,6 +13,7 @@ import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
 public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 	
+	@Override
 	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
 		String rows = "";
 		rows = "<ROWS>";
