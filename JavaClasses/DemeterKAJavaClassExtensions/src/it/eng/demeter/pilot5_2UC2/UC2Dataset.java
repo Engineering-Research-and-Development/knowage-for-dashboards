@@ -8,10 +8,46 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.util.HtmlUtils;
 
 import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
 public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
+	private String url = null;
+	
+	@Override
+	public String getValues(Map profile, Map parameters) {
+		String userId = (String) profile.get("user_id");
+		logger.info("user id ->" + userId + "<-");
+		System.out.println("USER ID: "+userId);
+		
+		try {
+			url = parameters.get(URL).toString();
+			logger.info("base url ->" + url + "<-");
+			System.out.println("base url ->" + url + "<-");
+			
+			url = url + "/" + userId;
+			url = url.replaceAll("\'", "");
+			
+			logger.info("final url ->" + url + "<-");
+			System.out.println("final url ->" + url + "<-");
+			
+			Object removedUrl = parameters.remove(URL);
+			
+			logger.info("removed url ->" + removedUrl + "<-");
+			System.out.println("removed url ->" + removedUrl + "<-");
+			
+			parameters.put(URL, url);
+			
+			logger.info("putted url ->" + url + "<-");
+			System.out.println("putted url ->" + url + "<-");
+		} catch (Exception e) {
+			e.printStackTrace();
+	    	logger.error(e.getMessage(), e.getCause());
+		}
+		
+		return super.getValues(profile, parameters);
+	}
 	
 	@Override
 	protected String aimTranslator(StringBuilder aim) throws Exception, JSONException {
@@ -35,8 +71,8 @@ public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 				case "AnimalGroup":
 					UC2AnimalGroup ag = new UC2AnimalGroup();
 					ag.setId(jsonArray.getJSONObject(l).get("@id").toString());
-					ag.setName(jsonArray.getJSONObject(l).get("name").toString());
-					ag.setDescription(jsonArray.getJSONObject(l).get("description").toString());
+					ag.setName(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("name").toString()));
+					ag.setDescription(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("description").toString()));
 					ag.setAnalysisDate(jsonArray.getJSONObject(l).get("analysisDate").toString().split("T")[0]);
 					animalGroups.put(ag.getId(), ag);
 					break;
@@ -44,9 +80,9 @@ public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 					UC2Farm f = new UC2Farm();
 					f.setId(jsonArray.getJSONObject(l).get("@id").toString());
 					f.setFarmID(jsonArray.getJSONObject(l).get("identifier").toString());
-					f.setName(jsonArray.getJSONObject(l).get("name").toString());
-					f.setDescription(jsonArray.getJSONObject(l).get("description").toString());
-					f.setAddress(jsonArray.getJSONObject(l).get("address").toString());
+					f.setName(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("name").toString()));
+					f.setDescription(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("description").toString()));
+					f.setAddress(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("address").toString()));
 					f.setGeoLocation(jsonArray.getJSONObject(l).getJSONObject("hasGeometry").get("asWKT").toString());
 					farms.put(f.getId(), f);
 					break;
@@ -54,11 +90,11 @@ public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 					UC2Animal a = new UC2Animal();
 					a.setId(jsonArray.getJSONObject(l).get("@id").toString());
 					a.setAnimalID(jsonArray.getJSONObject(l).get("identifier").toString());
-					a.setAnimalSpecies(jsonArray.getJSONObject(l).get("animalSpecies").toString());
+					a.setAnimalSpecies(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("animalSpecies").toString()));
 					a.setEarTag(jsonArray.getJSONObject(l).get("legalID").toString());
 					a.setBirthdate(jsonArray.getJSONObject(l).get("birthdate").toString().split("-")[0]);
 					a.setSex(jsonArray.getJSONObject(l).get("sex").toString());
-					a.setBreed(jsonArray.getJSONObject(l).get("breed").toString());
+					a.setBreed(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("breed").toString()));
 					a.setLocatedAtFarm(jsonArray.getJSONObject(l).get("locatedAt").toString());
 					if (jsonArray.getJSONObject(l).get("healthCondition").toString().equals("healthy")) {
 						a.setHealthCondition("1");
@@ -66,7 +102,7 @@ public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 						a.setHealthCondition("0");
 					}
 					a.setIsMemberOfAnimalGroup(jsonArray.getJSONObject(l).get("isMemberOfAnimalGroup").toString());
-					a.setNotes(jsonArray.getJSONObject(l).get("notes").toString());
+					a.setNotes(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("notes").toString()));
 					a.setVisibility(jsonArray.getJSONObject(l).get("visibility").toString());
 					a.setDepiction(jsonArray.getJSONObject(l).get("depiction").toString());
 					animals.put(a.getId(), a);
@@ -161,7 +197,12 @@ public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 		
 		rows += "</ROWS>";
 		
-		rows = rows.replaceAll("Ñ","&#209;");
+		//rows = rows.replaceAll("Ñ","&#209;");
+		//System.out.println("XML DATASET: ["+rows+"]");
 		return rows;
 	}
+	
+	public String debugTest(StringBuilder aim) throws JSONException, Exception {
+		return aimTranslator(aim);
+	  }
 }

@@ -24,6 +24,7 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 	private static final String NUMERIC_BODY = "NUMERIC_BODY_";
 	private static final String HTTP_METHOD = "HTTP_METHOD";
 	protected static final String URL = "URL";
+	private static final String URL_PARAMETER = "URL_PARAMETER_";
 
 	protected String concrete_url = null;
 
@@ -38,6 +39,7 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 	public String getValues(Map profile, Map parameters) {
 		String ds = null;
 		try {
+			System.out.println("USER ID: "+profile.get("user_id").toString());
 			String urlToRead = parameters.get(URL).toString();
 			String http_method = "GET";
 			if(parameters.containsKey(HTTP_METHOD)) {
@@ -47,6 +49,7 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 
 			JSONObject jsonBody = new JSONObject();
 			Map headerParameters = new HashMap<>();
+			Map urlParameters = new HashMap<>();
 
 			if(!http_method.equals("GET")) {
 
@@ -69,19 +72,70 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 					} else if(keyCurr.startsWith(HEADER)) {
 						String headerParameter = (String)parameters.get(keyCurr);
 						headerParameters.put(keyCurr.substring(7), headerParameter.replaceAll("\'", ""));
-					} 
+					} else if(keyCurr.startsWith(URL_PARAMETER)) {
+						if (!(parameters.get(keyCurr) == null)) {
+							String urlParameter = keyCurr.toLowerCase().substring(14);
+							logger.info("setting URL parameter ->" + urlParameter + "<-");
+							System.out.println("setting URL parameter ->" + urlParameter + "<-");
+							
+							urlParameter = snakeToCamel(urlParameter);
+							logger.info("final URL parameter ->" + urlParameter + "<-");
+							System.out.println("final URL parameter ->" + urlParameter + "<-");
+							
+							String urlParamValue = (String)parameters.get(keyCurr);
+							urlParamValue = urlParamValue.replaceAll("\'", "");//.replaceAll("\\s+", "_");
+							logger.info("URL parameter value ->" + urlParamValue + "<-");
+							System.out.println("URL parameter value ->" + urlParamValue + "<-");
+							
+							urlParameters.put(urlParameter, urlParamValue);
+						}
+					}
+				}
+			} else {
+				/* add only headers and url parameters if found */
+				Set<String> parametersKeySet = parameters.keySet();
+				for (String keyCurr : parametersKeySet) {
+					if(keyCurr.startsWith(HEADER)) {
+						String headerParameter = (String)parameters.get(keyCurr);
+						headerParameters.put(keyCurr.substring(7), headerParameter.replaceAll("\'", ""));
+					} else if(keyCurr.startsWith(URL_PARAMETER)) {
+						if (!(parameters.get(keyCurr) == null)) {
+							String urlParameter = keyCurr.toLowerCase().substring(14);
+							logger.info("setting URL parameter ->" + urlParameter + "<-");
+							System.out.println("setting URL parameter ->" + urlParameter + "<-");
+							
+							urlParameter = snakeToCamel(urlParameter);
+							logger.info("final URL parameter ->" + urlParameter + "<-");
+							System.out.println("final URL parameter ->" + urlParameter + "<-");
+							
+							String urlParamValue = (String)parameters.get(keyCurr);
+							urlParamValue = urlParamValue.replaceAll("\'", "");//.replaceAll("\\s+", "_");
+							logger.info("URL parameter value ->" + urlParamValue + "<-");
+							System.out.println("URL parameter value ->" + urlParamValue + "<-");
+							
+							urlParameters.put(urlParameter, urlParamValue);
+						}
+					}
 				}
 			}
 
 			/* add to allow forcing the URL */
 			if(concrete_url != null && !concrete_url.isEmpty()) {
-				logger.info("Using concrete_url->" + concrete_url);
+				logger.info("Using concrete_url->" + concrete_url);				
 				urlToRead = concrete_url;
 			}
 			/**/
 
 
 			urlToRead = urlToRead.replaceAll("\'","");
+			
+			if(urlParameters.size() > 0) {
+				urlToRead += "/?";
+				Set<String> urlParametersKeySet = urlParameters.keySet();
+				for (String keyCurr : urlParametersKeySet) {
+					urlToRead += keyCurr + "=" + urlParameters.get(keyCurr)+"&";
+				}
+			}
 
 			logger.info("->" + http_method + "<-");
 			System.out.println("->" + http_method + "<-");
@@ -97,12 +151,12 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 			URL url = new URL(urlToRead);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod(http_method);
-
+			
+			for (Object headerCurr : headerParameters.keySet()) {
+				con.setRequestProperty((String)headerCurr, (String)headerParameters.get(headerCurr));
+			}
+			
 			if(!http_method.equals("GET")) {
-
-				for (Object headerCurr : headerParameters.keySet()) {
-					con.setRequestProperty((String)headerCurr, (String)headerParameters.get(headerCurr));
-				}
 
 				con.setDoOutput(true);
 				try(OutputStream os = con.getOutputStream()) {
@@ -162,5 +216,29 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 		}
 		return false;
 	}
+	
+	protected static String snakeToCamel(String str) {
+        // Lower first letter of string
+        str = str.substring(0, 1).toLowerCase()
+              + str.substring(1);
+  
+        // Run a loop till string contains underscore
+        while (str.contains("_")) {
+  
+            // Replace the first occurrence
+            // of letter that present after
+            // the underscore, to capitalize
+            // form of next letter of underscore
+            str = str
+                      .replaceFirst(
+                          "_[a-z]",
+                          String.valueOf(
+                              Character.toUpperCase(
+                                  str.charAt(
+                                      str.indexOf("_") + 1))));
+        }
+        
+        return str;
+    }
 
 }

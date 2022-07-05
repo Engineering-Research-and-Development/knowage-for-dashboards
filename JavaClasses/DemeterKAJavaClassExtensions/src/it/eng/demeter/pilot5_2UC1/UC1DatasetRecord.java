@@ -1,8 +1,11 @@
 package it.eng.demeter.pilot5_2UC1;
 
 public class UC1DatasetRecord {
+	private String id;
 	private String assetName;
+	private String entityName;
 	private String observationName;
+	private String measurementName;
 	private String date;
 	private String time;
 	private String dateTimeStamp;
@@ -11,6 +14,25 @@ public class UC1DatasetRecord {
 	private String unit;
 	private String provider;
 	
+	
+	public String getEntityName() {
+		return entityName;
+	}
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+	public String getMeasurementName() {
+		return measurementName;
+	}
+	public void setMeasurementName(String measurementName) {
+		this.measurementName = measurementName;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getAssetName() {
 		return assetName;
 	}

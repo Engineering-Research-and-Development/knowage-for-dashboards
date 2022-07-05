@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.springframework.web.util.HtmlUtils;
 import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
 
@@ -156,9 +157,7 @@ public class A3Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		    		  for (int x=0; x<arrayResults.length(); x++) {
 		    			  A3Result result = new A3Result();
 	    				  result.setValue(arrayResults.get(x).toString());
-	    				  result.setValue(result.getValue()
-	    						  .replaceAll("°", "&#176;")
-	    						  .replaceAll("Â", ""));
+	    				  result.setValue(HtmlUtils.htmlEscapeDecimal(result.getValue()));
 	    				  result.setParcelRecordId(jsonArray.getJSONObject(l).get("@id").toString() + "." + x);
 	    				  results.put(result.getParcelRecordId(), result); 
 		    		  }

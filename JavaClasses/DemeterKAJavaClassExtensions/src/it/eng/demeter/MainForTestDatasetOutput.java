@@ -75,12 +75,12 @@ public class MainForTestDatasetOutput {
 		UC1Dataset uc1ds = new UC1Dataset();
 		TestG1Metrics g1test = new TestG1Metrics();
 		
-		try {
-			  String Url = "https://luidicorra.pythonanywhere.com/G1Test";
+		try { //https://sirvoz-pre.tragsatec.es/api/GetData/e500df44-b471-473c-aaf5-0ab454104302
+			  String Url = "https://margarita.etsist.upm.es:9150/getObservationsBySensor/latest/?limit=1&measurements=&entityNames=";
 		      FileWriter myWriter = new FileWriter("C:\\Users\\luidicorra\\Desktop\\Test\\filename.xml");
 		      // UNLOCK THIS LINE AND CHANGE THE DATASET CLASS TO TEST
 		      // REMEMBER TO COPY THE METHOD AT THE END OF THIS PAGE INSIDE BEING TESTED.
-		      myWriter.write(g1test.debugTest(getAim(Url,"GET")));
+		      //myWriter.write(uc1ds.debugTest(getAim(Url,"GET")));
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
@@ -120,8 +120,13 @@ public class MainForTestDatasetOutput {
 				}
 				rd.close();
 			} else {
+				Map headerParameters = new HashMap<>();
+				//headerParameters.put("HTTP_KNOWAGE", "Knowage");
 				URL url = new URL(urlToRead);
 				HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				for (Object headerCurr : headerParameters.keySet()) {
+					con.setRequestProperty((String)headerCurr, (String)headerParameters.get(headerCurr));
+				}
 				con.setRequestMethod("GET");
 				BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				String line;
