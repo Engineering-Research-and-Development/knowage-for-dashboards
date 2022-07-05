@@ -231,7 +231,7 @@ Please check the **[User Manual](https://github.com/Engineering-Research-and-Dev
 **[Antonio Caruso](mailto:Antonio.Caruso@eng.it)** _(Integration)_
 
 ## Release
-![Version badge](https://img.shields.io/badge/Release-2.7-green)
+![Version badge](https://img.shields.io/badge/Release-v2.8-green)
 
 ## License
 
