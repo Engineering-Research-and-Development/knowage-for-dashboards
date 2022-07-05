@@ -32,7 +32,12 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 * [**H.2: Transport condition**](#h2-transport-condition)
 * [**I.1: Generic Farm Comparison**](#i1-generic-farm-comparison)
 * [**I.2: Neighbour Benchmarking**](#i2-neighbour-benchmarking)
-* [**I.3: Technology Benchmarking**](#i3-technology-benchmarking)
+* [**I.3: Technology Benchmarking**](#i3-technology-benchmarking)ù
+* [**Pilot 5.2 UC1: Main Dashboard**](#pilot-52-uc1-main-dashboard)
+* [**Pilot 5.2 UC1: Weather Station**](#pilot-52-uc1-weather-station)
+* [**Pilot 5.2 UC1: Weather Measurement**](#pilot-52-uc1-weather-measurement)
+* [**Pilot 5.2 UC1: Sensor Information**](#pilot-52-uc1-sensor-information)
+* [**Pilot 5.2 UC2 Dashboard**](#pilot-52-uc2-dashboard)
  
 ## A.1: Training Plant Yield Estimation
 
@@ -136,3 +141,23 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 ## I.3: Technology Benchmarking
 
 ![I3 Dashboard](/screenshots/i3technologybenchmarking.png)
+
+## Pilot 5.2 UC1: Main Dashboard
+
+![Pilot 5.2 UC1](/screenshots/uc1dssmain.jpg)
+
+## Pilot 5.2 UC1: Weather Station
+
+![Pilot 5.2 UC1](/screenshots/uc1weatherstation.jpg)
+
+## Pilot 5.2 UC1: Weather Measurement
+
+![Pilot 5.2 UC1](/screenshots/uc1weathermeasurement.jpg)
+
+## Pilot 5.2 UC1: Sensor Information
+
+![Pilot 5.2 UC1](/screenshots/uc1sensor.jpg)
+
+## Pilot 5.2 UC2 Dashboard
+
+![Pilot 5.2 UC2](/screenshots/uc2dashboard.jpg)
