@@ -109,10 +109,14 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 
 ## G.1: Estimate Animal Welfare Condition
 
-### Training Dashboard
+### Patologies Training Dashboard
 ![G1 Dashboard](/screenshots/g1animalwelfaretraining.png)
-### Prediction Dashboard
+### Heat Stress Training Dashboard
+![G1 Dashboard](/screenshots/g1heatstresstraining.png)
+### Patologies Prediction Dashboard
 ![G1 Dashboard](/screenshots/g1animalwelfareprediction.png)
+### Heat Stress Prediction Dashboard
+![G1 Dashboard](/screenshots/g1heatstressprediction.png)
 
 ## G.2: Poultry Well Being
 
