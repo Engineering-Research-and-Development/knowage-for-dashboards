@@ -17,6 +17,7 @@ the Knowage for dashboard instance.
 * [**Dashboards view by role**](#dashboards-view-by-role)
 * [**Enable a end user to Pilot role**](#enable-a-end-user-to-pilot-role)
 * [**End user view**](#end-user-view)
+* [**Benchmarking URL configuration**](#benchmarking-url-configuration)
 
 ## Knowage registration on ACS
 
@@ -346,3 +347,27 @@ Note: The dataset configuration is optional and can be skipped if your component
 2. View dashboards list for **Pilot x.y user**.
 
 ![Knowage 16](/screenshots/UserManualImages/ka15.PNG)
+
+## Benchmarking URL configuration
+
+This guide can be used to configure URL on **I.1 (Generic)** and **I.2 (Neighbour)** Benchmarking DSS:
+
+1. Starting from the list of DSS, click on the **play** button of the chosen Benchmarking DSS (in this example is used I.1)
+
+![Benchmarking 1](/screenshots/UserManualImages/benchmarking1.png)
+
+2. A panel will be shown with an **URL input field**, paste the URL into that field and then press the **Disk icon** to save the URL
+
+![Benchmarking 2](/screenshots/UserManualImages/benchmarking2.png)
+
+3. A popup with some fields will be prompt, insert **Name, Description and Visibility**, then press on **Save** to complete.
+
+![Benchmarking 3](/screenshots/UserManualImages/benchmarking3.png)
+
+4. At this point, whenever the DSS is opened, and the right panel is shown, press on the **pencil** icon to open the list of saved URLs.
+
+![Benchmarking 4](/screenshots/UserManualImages/benchmarking4.png)
+
+5. A new window containing all the saved URLs will appear, at the right side of each row, there are three buttons used to **Fill form, Load and Execute and Delete**. Fill form simply put the saved URL on the main panel where the URL Field is located. Load and Execute, loads the saved URL and directly execute, opening the DSS view. Delete simply delete the saved URL.
+
+![Benchmarking 5](/screenshots/UserManualImages/benchmarking5.png)
