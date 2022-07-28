@@ -14,6 +14,7 @@ import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
 public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 	private String url = null;
+	private String idToFilter = null;
 	
 	@Override
 	public String getValues(Map profile, Map parameters) {
@@ -23,6 +24,8 @@ public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 		
 		try {
 			url = parameters.get(URL).toString();
+			idToFilter = parameters.get("FILTER_ID").toString();
+			idToFilter = idToFilter.replaceAll("\'", "");
 			logger.info("base url ->" + url + "<-");
 			System.out.println("base url ->" + url + "<-");
 			
@@ -170,39 +173,66 @@ public class UC2Dataset extends DemeterAbstractJavaClassDataSet {
 		});
 		
 		/*Exporting Records to XML KA format*/
-		for(UC2DatasetRecord dsR:dsRList) {
-			rows += "<ROW ID=\"" + dsR.getId()
-					+ "\" AnimalGroupName=\"" + dsR.getAnimalGroupName()
-					+ "\" AnimalGroupType=\"" + dsR.getAnimalGroupType()
-					+ "\" AnimalGroupDate=\"" + dsR.getAnimalGroupDate()
-					+ "\" FarmName=\"" + dsR.getFarmName()
-					+ "\" FarmDescription=\"" + dsR.getFarmDescription()
-					+ "\" FarmAddress=\"" + dsR.getFarmAddress()
-					+ "\" FarmWKT=\"" + dsR.getFarmWKT()
-					+ "\" FarmCode=\"" + dsR.getFarmCode()
-					+ "\" EarTag=\"" + dsR.getEarTag()
-					+ "\" Breed=\"" + dsR.getBreed()
-					+ "\" Sex=\"" + dsR.getSex()
-					+ "\" Born=\"" + dsR.getBorn()
-					+ "\" M1=\"" + dsR.getM1()
-					+ "\" M1Date=\"" + dsR.getM1Date()
-					+ "\" M2=\"" + dsR.getM2()
-					+ "\" M2Date=\"" + dsR.getM2Date()
-					+ "\" Pos=\"" + dsR.getPos()
-					+ "\" Extra=\"" + dsR.getExtra()
-					+ "\" Comments=\"" + dsR.getComments()
-					+ "\" Picture=\"" + dsR.getPicture()
-					+ "\"/>";
+		if (!(idToFilter.equalsIgnoreCase("NONE"))) {
+			System.out.println("FILTER ID is defined to another value: "+idToFilter);
+			for(UC2DatasetRecord dsR:dsRList) {
+				if(dsR.getId().equalsIgnoreCase(idToFilter)) {
+					System.out.println("ID To Match: "+idToFilter+" DATA RECORD ID: "+dsR.getId());
+					rows += "<ROW ID=\"" + dsR.getId()
+						+ "\" AnimalGroupName=\"" + dsR.getAnimalGroupName()
+						+ "\" AnimalGroupType=\"" + dsR.getAnimalGroupType()
+						+ "\" AnimalGroupDate=\"" + dsR.getAnimalGroupDate()
+						+ "\" FarmName=\"" + dsR.getFarmName()
+						+ "\" FarmDescription=\"" + dsR.getFarmDescription()
+						+ "\" FarmAddress=\"" + dsR.getFarmAddress()
+						+ "\" FarmWKT=\"" + dsR.getFarmWKT()
+						+ "\" FarmCode=\"" + dsR.getFarmCode()
+						+ "\" EarTag=\"" + dsR.getEarTag()
+						+ "\" Breed=\"" + dsR.getBreed()
+						+ "\" Sex=\"" + dsR.getSex()
+						+ "\" Born=\"" + dsR.getBorn()
+						+ "\" M1=\"" + dsR.getM1()
+						+ "\" M1Date=\"" + dsR.getM1Date()
+						+ "\" M2=\"" + dsR.getM2()
+						+ "\" M2Date=\"" + dsR.getM2Date()
+						+ "\" Pos=\"" + dsR.getPos()
+						+ "\" Extra=\"" + dsR.getExtra()
+						+ "\" Comments=\"" + dsR.getComments()
+						+ "\" Picture=\"" + dsR.getPicture()
+						+ "\"/>";
+				}
+			}
+			
+		} else {
+			System.out.println("FILTER ID IS NOT USED: "+idToFilter);
+			for(UC2DatasetRecord dsR:dsRList) {
+				rows += "<ROW ID=\"" + dsR.getId()
+						+ "\" AnimalGroupName=\"" + dsR.getAnimalGroupName()
+						+ "\" AnimalGroupType=\"" + dsR.getAnimalGroupType()
+						+ "\" AnimalGroupDate=\"" + dsR.getAnimalGroupDate()
+						+ "\" FarmName=\"" + dsR.getFarmName()
+						+ "\" FarmDescription=\"" + dsR.getFarmDescription()
+						+ "\" FarmAddress=\"" + dsR.getFarmAddress()
+						+ "\" FarmWKT=\"" + dsR.getFarmWKT()
+						+ "\" FarmCode=\"" + dsR.getFarmCode()
+						+ "\" EarTag=\"" + dsR.getEarTag()
+						+ "\" Breed=\"" + dsR.getBreed()
+						+ "\" Sex=\"" + dsR.getSex()
+						+ "\" Born=\"" + dsR.getBorn()
+						+ "\" M1=\"" + dsR.getM1()
+						+ "\" M1Date=\"" + dsR.getM1Date()
+						+ "\" M2=\"" + dsR.getM2()
+						+ "\" M2Date=\"" + dsR.getM2Date()
+						+ "\" Pos=\"" + dsR.getPos()
+						+ "\" Extra=\"" + dsR.getExtra()
+						+ "\" Comments=\"" + dsR.getComments()
+						+ "\" Picture=\"" + dsR.getPicture()
+						+ "\"/>";
+			}
 		}
 		
-		rows += "</ROWS>";
 		
-		//rows = rows.replaceAll("Ñ","&#209;");
-		//System.out.println("XML DATASET: ["+rows+"]");
+		rows += "</ROWS>";
 		return rows;
 	}
-	
-	public String debugTest(StringBuilder aim) throws JSONException, Exception {
-		return aimTranslator(aim);
-	  }
 }
