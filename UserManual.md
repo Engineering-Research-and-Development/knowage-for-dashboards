@@ -173,6 +173,7 @@ ACS_ADMIN_PASSWORD=ADMIN PASSWORD
 REDIRECT_URL=http://localhost:8080/knowage/servlet/AdapterHTTP?PAGE=LoginPage\&NEW_SESSION=TRUE
 PROXY_HOST=
 PROXY_PORT=
+PUBLIC_ADDRESS=http://localhost:8080
 
 ```
 
@@ -185,24 +186,26 @@ PROXY_PORT=
 
 10. If you need to configure a proxy, set **PROXY_HOST** and **PROXY_PORT** else, leave those values empty.
 
-11. Once everything is set, open a **command prompt** on the same folder of the **docker-compose** file.
+11. Set the **PUBLIC_ADDRESS** with Http or Https protocol, your host ip and port or just the host url (depends on your configuration), for example: the Knowage configured on ENG side, use the following URL https://knowage-demeter.eng.it so the **PUBLIC_ADDRESS** should contain the same value (without the final "/"). Another example, if Knowage is running locally, http://localhost:8080 (the port is specified).
 
-12. If it's the first installation of the instance, or you want to update the version,
+12. Once everything is set, open a **command prompt** on the same folder of the **docker-compose** file.
+
+13. If it's the first installation of the instance, or you want to update the version,
 then execute the command `docker-compose up -d`, else, execute the command `docker-compose start`.
 
-13. Wait until the service is fully started (it should take 1 minute or less).
+14. Wait until the service is fully started (it should take 1 minute or less).
 
-14. Open a browser and paste the URL for logging in Knowage:
+15. Open a browser and paste the URL for logging in Knowage:
 
 ```
 http://localhost:8080/knowage/servlet/AdapterHTTP?PAGE=LoginPage&NEW_SESSION=TRUE
 ```
 
-15. Use the ACS account registered to access.
+16. Use the ACS account registered to access.
 
-16. If it's the first time, an **Authorization** message will pop out to **Allow** the access.
+17. If it's the first time, an **Authorization** message will pop out to **Allow** the access.
 
-17. Execute the command `docker-compose stop` to stop the instance. That's wont delete your data from the container.
+18. Execute the command `docker-compose stop` to stop the instance. That's wont delete your data from the container.
 	* Note: Using again `docker-compose up -d` to start the instance , will reset all the data and configuration made inside Knowage.
 
 ## DSS Table

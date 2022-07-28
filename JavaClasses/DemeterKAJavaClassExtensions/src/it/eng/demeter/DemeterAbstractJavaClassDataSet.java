@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,9 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 	private static final String HTTP_METHOD = "HTTP_METHOD";
 	protected static final String URL = "URL";
 	private static final String URL_PARAMETER = "URL_PARAMETER_";
-
+	private static final String PROXY_HOST = "PROXY_HOST";
+	private static final String PROXY_PORT = "PROXY_PORT";
+	
 	protected String concrete_url = null;
 
 	static protected Logger logger = Logger.getLogger(DemeterAbstractJavaClassDataSet.class);
@@ -149,7 +153,24 @@ public abstract class DemeterAbstractJavaClassDataSet implements IJavaClassDataS
 			/*Chiamo il servizio di acquisizione AIM*/
 			StringBuilder aim = new StringBuilder();
 			URL url = new URL(urlToRead);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			
+			String proxyHost = (String)parameters.get(PROXY_HOST);
+			String proxyPort = (String)parameters.get(PROXY_PORT);
+			HttpURLConnection con = null;
+			if(proxyHost != null && proxyPort != null && !proxyHost.isEmpty() && !proxyPort.isEmpty()) {
+				proxyHost = proxyHost.replaceAll("\'", "");
+				proxyPort = proxyPort.replaceAll("\'", "");
+				logger.info("PROXY HOST ->"+proxyHost);
+				logger.info("PROXY PORT ->"+proxyPort);
+				System.out.println("PROXY HOST ->"+proxyHost);
+				System.out.println("PROXY PORT ->"+proxyPort);	
+				Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, Integer.parseInt(proxyPort)));
+				con = (HttpURLConnection) url.openConnection(proxy);
+			} else {
+				System.out.println("PROXY NOT CONFIGURED, OPENING NORMAL CONNECTION");
+				con = (HttpURLConnection) url.openConnection();
+			}
+			
 			con.setRequestMethod(http_method);
 			
 			for (Object headerCurr : headerParameters.keySet()) {
