@@ -38,6 +38,7 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 * [**Pilot 5.2 UC1: Weather Measurement**](#pilot-52-uc1-weather-measurement)
 * [**Pilot 5.2 UC1: Sensor Information**](#pilot-52-uc1-sensor-information)
 * [**Pilot 5.2 UC2 Dashboard**](#pilot-52-uc2-dashboard)
+* [**Pilot 5.2 UC2 Additional Data**](#pilot-52-uc2-additional-data)
  
 ## A.1: Training Plant Yield Estimation
 
@@ -165,3 +166,7 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 ## Pilot 5.2 UC2 Dashboard
 
 ![Pilot 5.2 UC2](/screenshots/uc2dashboard.jpg)
+
+## Pilot 5.2 UC2 Additional Data
+
+![Pilot 5.2 UC2](/screenshots/uc2additionaldata.jpg)
