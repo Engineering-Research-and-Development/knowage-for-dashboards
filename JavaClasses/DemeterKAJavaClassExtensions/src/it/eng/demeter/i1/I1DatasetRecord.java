@@ -9,6 +9,6 @@ public class I1DatasetRecord {
 	String valueRef = "0";
 	String unit = "";
 	String result = "0";
-	String progress = "0";
+	String progress = "0.00";
 	String idDataType = "";
 }

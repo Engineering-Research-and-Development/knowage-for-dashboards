@@ -9,6 +9,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.util.HtmlUtils;
 
 import it.eng.demeter.DemeterAbstractJavaClassDataSet;
 
@@ -72,8 +73,8 @@ public class I1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 				switch (Elemento) {
 				case "farm":
 					String farmId = jsonArray.getJSONObject(l).get("@id").toString();
-					String desc = jsonArray.getJSONObject(l).get("description").toString();
-					desc = desc.replaceAll("<", "&lt;");
+					String desc = HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("description").toString());
+					//desc = desc.replaceAll("<", "&lt;");
 					farms.put(farmId, desc);
 					break;
 				case "KpiIndicator":
@@ -89,9 +90,9 @@ public class I1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 							ind.idType="other";
 						}
 					}
-					ind.indicatorName = jsonArray.getJSONObject(l).get("schema.name").toString();
-					ind.indicatorName = ind.indicatorName.replaceAll("&", "&amp;");
-					ind.sectorName = jsonArray.getJSONObject(l).getJSONObject("sector").get("@id").toString().split("#sectorScheme-")[1];
+					ind.indicatorName = HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("schema.name").toString());
+					//ind.indicatorName = ind.indicatorName.replaceAll("&", "&amp;");
+					ind.sectorName = HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).getJSONObject("sector").get("@id").toString().split("#sectorScheme-")[1]);
 					indicators.put(ind.id, ind);
 					break;
 				case "KpiIndicatorValue":
@@ -103,9 +104,9 @@ public class I1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 						indV.value = HasResultsjsonArray.getJSONObject(j).get("numericValue").toString();
 						String[] words = HasResultsjsonArray.getJSONObject(j).getJSONObject("unit").get("@id").toString().split(":");
 						if (words.length > 1) {
-							indV.unit = words[1];
+							indV.unit = HtmlUtils.htmlEscapeDecimal(words[1]);
 						} else {
-							indV.unit = HasResultsjsonArray.getJSONObject(j).getJSONObject("unit").get("@id").toString();
+							indV.unit = HtmlUtils.htmlEscapeDecimal(HasResultsjsonArray.getJSONObject(j).getJSONObject("unit").get("@id").toString());
 						}
 					}
 
@@ -136,7 +137,7 @@ public class I1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 						dsR.unit = indV.unit;
 						dsR.idDataType = indObj.idType;
 						if(!dsR.value.equals("null")) {
-							if ((!dsR.valueRef.equals("0")) && (!dsR.valueRef.equals("null"))) {
+							if (!dsR.valueRef.equals("0") && !dsR.valueRef.equals("null") && !(Double.parseDouble(dsR.valueRef)==0)) {
 								double res = (Double.parseDouble(dsR.value)/Double.parseDouble(dsR.valueRef));
 								double prog = ((Double.parseDouble(dsR.value)*100)/Double.parseDouble(dsR.valueRef));
 								dsR.result = Double.toString(res);
@@ -145,12 +146,12 @@ public class I1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 								dsR.progress = dsR.progress.replaceAll(",",".");
 							} else {
 								dsR.result = dsR.value;
-								dsR.progress = "0";
+								dsR.progress = "0.00";
 							}
 						} else {
 							dsR.value = "";
 							dsR.result = "-1";
-							dsR.progress = "0";
+							dsR.progress = "0.00";
 						}
 
 						dsRList.add(dsR);
@@ -179,7 +180,7 @@ public class I1Dataset extends DemeterAbstractJavaClassDataSet /*implements it.e
 		//farms.forEach((key, value) -> {System.out.println(key + ":" + value);});
 		//indicators.forEach((key, value) -> System.out.println(key + ":" + value));
 		//for(I1IndicatorValue indV:indicatorsValues) {System.out.println(indV.indicatorId +":"+indV.value.toString());}
+		
 		return rows;
 	}
-
 }
