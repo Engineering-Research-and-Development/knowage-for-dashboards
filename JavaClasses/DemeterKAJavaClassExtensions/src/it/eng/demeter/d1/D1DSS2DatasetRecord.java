@@ -13,8 +13,15 @@ public class D1DSS2DatasetRecord {
 	private String unit = "-";
 	private String uniqueId = "";
 	private String filterForDateTable = ""; //true or false
-	private String type = ""; // on Road or off Road
-	
+	private String type = ""; // refer to property "hasDescription"
+	private String chartName = ""; // refer to property "hasName"
+
+	public String getChartName() {
+		return chartName;
+	}
+	public void setChartName(String chartName) {
+		this.chartName = chartName;
+	}
 	public String getType() {
 		return type;
 	}

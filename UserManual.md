@@ -223,6 +223,7 @@ The following table shows, for each **Dashboard (DSS)**, the name, which pilots 
 | C1        | DSS1.C1    | C1 Nitrogen Balance Model                       | 1.3, 1.4, 2.3, 3.1, 3.2 | 4C1_NitrogenBalanceData                                                         |
 | C2        | DSS1.C2.D1 | C2 Nutrient and Sowing recommendation           | 1.3, 1.4, 2.3, 3.1, 3.2 | 4C2_NutrientMonitorZones, 4C2_NutrientMonitorWeather, 4C2_NutrientMonitorParcel |
 | D1        | DSS1.D1    | D1 Emission                                     | 2.1                     | 4D1_Emission                                                                    |
+| D1        | DSS1.D1    | D1 Emission DSS2                                | 2.1                     | 4D1_Emission_DSS2                                                               |
 | D2        | DSS2.D2    | D2 Field Operation                              | 2.3, 5.1, 5.2           | 4D2_FieldOperation                                                              |
 | D3        | DSS2.D3    | D3 Variable Rate                                | 3.4, 5.1, 5.2           | 4D3_VariableRate                                                                |
 | D3        | DSS2.D3    | D3 Variable Rate Field Select                   | 3.4, 5.1, 5.2           | 4D3_VariableRateFields                                                          |
@@ -235,10 +236,18 @@ The following table shows, for each **Dashboard (DSS)**, the name, which pilots 
 | G2        | DSS1.G2    | G2 Poultry Well Being                           | 4.3, 5.4                | 4G2_PoultryWellBeing                                                            |
 | H1        | DSS1.H1.D1 | H1 Milk Quality Training                        | 4.2                     | 4H1.DSS1.MilkQualityMetrics, 4H1.DSS1.MilkQualityTraining                       |
 | H1        | DSS1.H1.D2 | H1 Milk Quality Prediction                      | 4.2                     | 4H1.DSS2.MilkQualityPrediction                                                  |
+| H1        | DSS1.H1.D2 | H1 Milk Analysis                                | 4.2                     | 4H1.DSS1.MilkAnalysis                                                           |
 | H2        | DSS1.H2    | H2 Transport Condition                          | 5.1, 5.4                | 4H2_TransportCondition                                                          |
 | I1        | DSS1.I1    | I1 Generic Farm Comparison                      | ALL                     | 4I1_GenericFarmComparison                                                       |
 | I2        | DSS1.I2    | I2 Neighbour Benchmarking                       | ALL                     | 4I2_NeighbourBenchmarking                                                       |
+| I2        | DSS1.I2    | I2 Indicator Benchmarking                       | ALL                     | 4I2_NeighbourBenchmarking                                                       |
 | I3        | DSS1.I3    | Technology Benchmarking                         | ALL                     | 4I3_TechnologyBenchmarking                                                      |
+|           | Pilot 5_2 UC2 | Pilot 5.2 UC2 | 5.2 | Pilot5_2_UC2 |
+|           | Pilot 5_2 UC2 | Pilot 5.2 UC2 Additional Data | 5.2 | Pilot5_2_UC2 |
+|           | Pilot 5_2 UC1 | Pilot 5.2 UC1 Main | 5.2 | Pilot5_2_UC1 |
+|           | P5_2UC1_WObs | Pilot 5.2 UC1 Weather Observations | 5.2 | Pilot5_2_UC1 |
+|           | P5_2UC1_WObsDet| Pilot 5.2 UC1 Weather Observation Details | 5.2 | Pilot5_2_UC1 |
+|           | P5_2UC1_SObsDet | Pilot 5.2 UC1 Sensor Observation Details | 5.2 | Pilot5_2_UC1, Pilot_5_2_UC1_Latest |
 
 ## Dataset configuration
 

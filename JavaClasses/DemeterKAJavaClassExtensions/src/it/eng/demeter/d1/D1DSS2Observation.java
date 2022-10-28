@@ -6,7 +6,14 @@ public class D1DSS2Observation {
 	private String value = "0";
 	private String unit = "-";
 	private String type = "";
+	private String chartName = ""; // refer to property "hasName"
 	
+	public String getChartName() {
+		return chartName;
+	}
+	public void setChartName(String chartName) {
+		this.chartName = chartName;
+	}
 	public String getType() {
 		return type;
 	}

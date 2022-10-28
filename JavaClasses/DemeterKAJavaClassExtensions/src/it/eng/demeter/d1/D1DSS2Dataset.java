@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.springframework.web.util.HtmlUtils;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,8 +52,15 @@ public class D1DSS2Dataset extends DemeterAbstractJavaClassDataSet {
 				case "Observation":
 					D1DSS2Observation ob = new D1DSS2Observation();
 					ob.setId(jsonArray.getJSONObject(l).get("@id").toString());
-					ob.setName(jsonArray.getJSONObject(l).get("observedProperty").toString());
-					if (jsonArray.getJSONObject(l).get("hasSimpleResult") instanceof JSONArray)
+					ob.setName(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("observedProperty").toString()));
+					ob.setValue(jsonArray.getJSONObject(l).get("hasSimpleResult").toString());
+					if(jsonArray.getJSONObject(l).has("hasDescription")) {
+						ob.setType(HtmlUtils.htmlEscapeDecimal(jsonArray.getJSONObject(l).get("hasDescription").toString()));
+					}
+					if(jsonArray.getJSONObject(l).has("hasName")) {
+						ob.setChartName(jsonArray.getJSONObject(l).get("hasName").toString());
+					}
+					/*if (jsonArray.getJSONObject(l).get("hasSimpleResult") instanceof JSONArray)
 				    {
 						JSONArray results = new JSONArray(jsonArray.getJSONObject(l).get("hasSimpleResult").toString());
 						for (int j=0; j<results.length(); j++) {
@@ -67,7 +75,7 @@ public class D1DSS2Dataset extends DemeterAbstractJavaClassDataSet {
 						ob.setType("On Road");
 					} else if(this.isContain(ob.getName(), "off Road")) {
 						ob.setType("Off Road");
-					}
+					}*/
 					/*if(ob.getName().contains("on Road")) {
 						ob.setType("On Road");
 					} else if(ob.getName().contains("off Road")) {
@@ -109,6 +117,7 @@ public class D1DSS2Dataset extends DemeterAbstractJavaClassDataSet {
 						dsR.setValue(obItem.getValue());
 						dsR.setUnit(obItem.getUnit());
 						dsR.setType(obItem.getType());
+						dsR.setChartName(obItem.getChartName());
 						dsRList.add(dsR);
 					}
 				}
@@ -127,6 +136,7 @@ public class D1DSS2Dataset extends DemeterAbstractJavaClassDataSet {
 						+ "\" unit=\"" + dsR.getUnit()
 						+ "\" type=\"" + dsR.getType()
 						+ "\" filterForDateTable=\"" + dsR.getFilterForDateTable()
+						+ "\" chartName=\"" + dsR.getChartName()
 						+ "\"/>";
 			}
 					
@@ -137,10 +147,12 @@ public class D1DSS2Dataset extends DemeterAbstractJavaClassDataSet {
 		}
 		return rows;
 	}
-	private boolean isContain(String source, String subItem){
+	
+	/*private boolean isContain(String source, String subItem){
         String pattern = "\\b"+subItem+"\\b";
         Pattern p=Pattern.compile(pattern);
         Matcher m=p.matcher(source);
         return m.find();
-   }
+   }*/
+	
 }

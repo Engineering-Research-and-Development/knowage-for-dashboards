@@ -79,11 +79,11 @@ public class MainForTestDatasetOutput {
 			//https://margarita.etsist.upm.es:9150/getObservationsBySensor/latest/?limit=1&measurements=&entityNames=
 			//https://luidicorra.pythonanywhere.com/I1
 			//https://demeter-benchmarking.d.agricolus.com/api/i1/generic_benchmarking/urn:demeter:farm:22fa65a2-a5a6-4ae2-bab9-ab956f8be54e
-			  String Url = "https://luidicorra.pythonanywhere.com/I1";
+			  String Url = "https://luidicorra.pythonanywhere.com/D1DSS2";
 		      FileWriter myWriter = new FileWriter("C:\\Users\\luidicorra\\Desktop\\Test\\filename.xml");
 		      // UNLOCK THIS LINE AND CHANGE THE DATASET CLASS TO TEST
 		      // REMEMBER TO COPY THE METHOD AT THE END OF THIS PAGE INSIDE BEING TESTED.
-		      //myWriter.write(i1.debugTest(getAim(Url,"GET")));
+		      //myWriter.write(d1dss2.debugTest(getAim(Url,"GET")));
 		      myWriter.close();
 		      System.out.println("Successfully wrote to the file.");
 		    } catch (IOException e) {
