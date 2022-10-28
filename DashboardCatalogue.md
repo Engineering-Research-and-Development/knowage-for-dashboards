@@ -78,7 +78,7 @@ This catalogue, contains some screenshots regarding the dashboards (released and
 
 ## D.1: Emission DSS 2
 
-![D1 Dashboard 2](/screenshots/d1emissiondss2.jpg)
+![D1 Dashboard 2](/screenshots/d1emissiondss2.png)
 
 ## D.2: Field Operation
 
