@@ -71,6 +71,8 @@ The dashboard catalogue will list all the dashboards currently released on Knowa
 | I    | I1           | Diego Guidotti (AGRICOLUS)                          | 100%        |
 | I    | I2           | Diego Guidotti (AGRICOLUS)                          | 100%        |
 | I    | I3           | Diego Guidotti (AGRICOLUS)                          | 100%        |
+|      | 5.2 UC#1     |  Vicente Hernández (UPM)                            | 100%        |
+|      | 5.2 UC#2     | Carlos Martinez (TRAGSA)                            | 100%        |
 
 ## Technologies
 
@@ -191,6 +193,7 @@ ACS_ADMIN_PASSWORD=ADMIN PASSWORD
 REDIRECT_URL=http://localhost:8080/knowage/servlet/AdapterHTTP?PAGE=LoginPage\&NEW_SESSION=TRUE
 PROXY_HOST=
 PROXY_PORT=
+PUBLIC_ADDRESS=http://localhost:8080
 
 ```
 
